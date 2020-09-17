@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane>
+         <children>
+            <Rectangle fill="#57a448" height="98.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="2.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="14.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="26.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="2.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="38.0" layoutY="38.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="14.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="50.0" layoutY="38.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="26.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="38.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="38.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="50.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="2.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="14.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="26.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="38.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="50.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="2.0" layoutY="38.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="26.0" layoutY="38.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="14.0" layoutY="38.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="50.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="38.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="50.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="2.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="26.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="14.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="38.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="50.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="2.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="26.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="14.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="38.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="50.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="2.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="26.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="14.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="38.0" layoutY="86.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="50.0" layoutY="86.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="2.0" layoutY="86.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="26.0" layoutY="86.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="14.0" layoutY="86.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="124.0">
+         <children>
+            <Rectangle fill="#57a448" height="98.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="2.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="14.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="26.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="2.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="38.0" layoutY="38.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="14.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="50.0" layoutY="38.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="26.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="38.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="38.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="50.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="2.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="14.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="26.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="38.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="50.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="2.0" layoutY="38.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="26.0" layoutY="38.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="14.0" layoutY="38.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="50.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="38.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="50.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="2.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="26.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="14.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="38.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="50.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="2.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="26.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="14.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="38.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="50.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="2.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="26.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="14.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="38.0" layoutY="86.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="50.0" layoutY="86.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="2.0" layoutY="86.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="26.0" layoutY="86.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="14.0" layoutY="86.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="62.0">
+         <children>
+            <Rectangle fill="#57a448" height="98.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="2.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="14.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="26.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="2.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="38.0" layoutY="38.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="14.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="50.0" layoutY="38.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="26.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="38.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="38.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="50.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="2.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="14.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="26.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="38.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="50.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="2.0" layoutY="38.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="26.0" layoutY="38.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="14.0" layoutY="38.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="50.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="38.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="50.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="2.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="26.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="14.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="38.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="50.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="2.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="26.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="14.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="38.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="50.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="2.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="26.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="14.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="38.0" layoutY="86.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="50.0" layoutY="86.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="2.0" layoutY="86.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="26.0" layoutY="86.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="14.0" layoutY="86.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="186.0">
+         <children>
+            <Rectangle fill="#57a448" height="98.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="62.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="2.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="14.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="26.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="2.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="38.0" layoutY="38.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="14.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="50.0" layoutY="38.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="26.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="38.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="38.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="50.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="2.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="14.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="26.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="38.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="50.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="2.0" layoutY="38.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="26.0" layoutY="38.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="14.0" layoutY="38.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="50.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="38.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="50.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="2.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="26.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="14.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="38.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="50.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="2.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="26.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="14.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="38.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="50.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="2.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="26.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="14.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="38.0" layoutY="86.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="50.0" layoutY="86.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#5c7262" height="10.0" layoutX="2.0" layoutY="86.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="26.0" layoutY="86.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+            <Rectangle fill="#15391f" height="10.0" layoutX="14.0" layoutY="86.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="10.0" />
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="38.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>
