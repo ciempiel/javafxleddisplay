@@ -15,7 +15,7 @@ public class TestApp extends Application {
 		try {
 			root = new AnchorPane();
 			addDisplay(root, primaryStage);
-			Scene scene = new Scene(root, 800, 400);
+			Scene scene = new Scene(root, 1200, 400);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (Exception e) {
@@ -25,10 +25,7 @@ public class TestApp extends Application {
 
 	private void addDisplay(AnchorPane pane, Stage stage) {
 		// ------------------------------------------------------------------
-		AlphanumericLedDisplayConfig config = new AlphanumericLedDisplayConfig();
-		config.setPixelGap(1);
-		config.setPixelSize(5);
-		AlphanumericLedDisplay display = new AlphanumericLedDisplay(config, new PixelFontLoader("fonts\\casio-fx-9860gii.ttf", 7));
+		AlphanumericLedDisplay display = new AlphanumericLedDisplay(new PixelFontLoader("fonts\\casio-fx-9860gii.ttf", 7));
 		pane.getChildren().add(display);
 
 		stage.showingProperty().addListener((observable, oldValue, newValue) -> {

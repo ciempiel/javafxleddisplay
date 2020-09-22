@@ -12,18 +12,21 @@ class AlphanumericChar extends Control {
 	private final static Color SET_COLOR = Color.rgb(21, 57, 31);
 	private final static Color CLEAR_COLOR = Color.rgb(92, 114, 98);
 
-	private final AlphanumericLedDisplayConfig config;
+	private final AlphanumericLedDisplay display;
 
-	public AlphanumericChar(AlphanumericLedDisplayConfig config) {
-		super();
-		this.config = config;
-	}
+	private final Pane pane;
 
 	private Rectangle[][] pixels;
 
+	public AlphanumericChar(AlphanumericLedDisplay display) {
+		super();
+		this.display = display;
+		pane = new Pane();
+	}
+
 	public void setPixelMatrix(PixelChar pixelMatrix) {
-		for (int i = 0; i < config.getPixelXCount(); i++) {
-			for (int j = 0; j < config.getPixelYCount(); j++) {
+		for (int i = 0; i < display.getPixelCountX(); i++) {
+			for (int j = 0; j < display.getPixelCountY(); j++) {
 				Color color = pixelMatrix.isPixelSet(i, j) ? SET_COLOR : CLEAR_COLOR;
 				pixels[i][j].setFill(color);
 			}
@@ -31,19 +34,11 @@ class AlphanumericChar extends Control {
 	}
 
 	public void clearPixel() {
-		for (int i = 0; i < config.getPixelXCount(); i++) {
-			for (int j = 0; j < config.getPixelYCount(); j++) {
+		for (int i = 0; i < display.getPixelCountX(); i++) {
+			for (int j = 0; j < display.getPixelCountY(); j++) {
 				pixels[i][j].setFill(CLEAR_COLOR);
 			}
 		}
-	}
-
-	public double calcWidth() {
-		return config.getPixelXCount() * config.getPixelSize() + 6 * config.getPixelGap();
-	}
-
-	public double calcHeight() {
-		return config.getPixelYCount() * config.getPixelSize() + 8 * config.getPixelGap();
 	}
 
 	@Override
@@ -56,37 +51,39 @@ class AlphanumericChar extends Control {
 	}
 
 	private Pane createPane() {
-		Pane pane = new Pane();
-		pixels = new Rectangle[config.getPixelXCount()][config.getPixelYCount()];
-		for (int i = 0; i < config.getPixelXCount(); i++) {
-			for (int j = 0; j < config.getPixelYCount(); j++) {
-				Rectangle pixel = createRectange();
-				pixel.setLayoutX(calcPixelLayoutX(i));
-				pixel.setLayoutY(calcPixelLayoutY(j));
+		pixels = new Rectangle[display.getPixelCountX()][display.getPixelCountY()];
+		for (int i = 0; i < display.getPixelCountX(); i++) {
+			for (int j = 0; j < display.getPixelCountY(); j++) {
+				Rectangle pixel = createPixel(i, j);
 				pane.getChildren().add(pixel);
 				pixels[i][j] = pixel;
 			}
 		}
-		pane.setPrefWidth(calcWidth());
-		pane.setPrefHeight(calcHeight());
-		pane.setStyle("-fx-background-color: #57a448");
-		// pane.prefWidthProperty().bind(getSkinnable().prefWidthProperty());
-		// pane.prefHeightProperty().bind(getSkinnable().prefHeightProperty());
 		return pane;
 	}
 
-	private double calcPixelLayoutX(int indexX) {
-		return (config.getPixelSize() + config.getPixelGap()) * indexX + config.getPixelGap();
+	private Rectangle createPixel(int indexX, int indexY) {
+		Rectangle pixel = new Rectangle();
+		pixel.setWidth(display.getPixelWidth());
+		pixel.setHeight(display.getPixelHeight());
+		pixel.setLayoutX(getPixelLayoutX(indexX));
+		pixel.setLayoutY(getPixelLayoutY(indexY));
+		return pixel;
 	}
-
-	private double calcPixelLayoutY(int indexY) {
-		return (config.getPixelSize() + config.getPixelGap()) * indexY + config.getPixelGap();
+	
+	private double getPixelLayoutX(int indexX) {
+		return (display.getPixelWidth() + display.getPixelGapX()) * indexX + display.getPixelGapX();
 	}
-
-	private Rectangle createRectange() {
-		Rectangle rect = new Rectangle();
-		rect.setWidth(config.getPixelSize());
-		rect.setHeight(config.getPixelSize());
-		return rect;
+	
+	private double getPixelLayoutY(int indexY) {
+		return (display.getPixelHeight() + display.getPixelGapY()) * indexY + display.getPixelGapY();
+	}
+	
+	public static double calcWidth(AlphanumericLedDisplay display) {
+		return (display.getPixelWidth() + display.getPixelGapX()) * display.getPixelCountX() + display.getPixelGapX();
+	}
+	
+	public static double calcHeight(AlphanumericLedDisplay display) {
+		return (display.getPixelHeight() + display.getPixelGapY()) * display.getPixelCountY() + display.getPixelGapY();
 	}
 }
