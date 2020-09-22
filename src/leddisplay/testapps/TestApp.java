@@ -1,10 +1,11 @@
-package leddisplay;
+package leddisplay.testapps;
 
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import leddisplay.AlphanumericLedDisplay;
 import leddisplay.font.PixelFontLoader;
 
 public class TestApp extends Application {
