@@ -4,6 +4,8 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import javafx.scene.control.SkinBase;
@@ -39,6 +41,19 @@ public class AlphanumericLedDisplay extends Control {
 		pixelHeight.addListener((observable, newValue, oldValue) -> refresh());
 		pixelGapX.addListener((observable, newValue, oldValue) -> refresh());
 		pixelGapY.addListener((observable, newValue, oldValue) -> refresh());
+		
+		text.addListener((observable, oldValue, newValue) -> {
+			if (text.isBound()) {
+				CharPrinter printer = new CharPrinter(getLineCount(), getCharCount());
+				printer.setText(oldValue);
+				printer.initChanges();
+				printer.setText(newValue);
+				printer.consumeChanges((posX, posY, c) -> {
+					PixelChar pixelMatrix = font.getChar(c);
+					alphanumerics[posX][posY].setPixelMatrix(pixelMatrix);
+				});
+			}
+		});
 	}
 
 	private final IntegerProperty lineCount = new SimpleIntegerProperty(this, "lineCount", DEFAULT_LINE_COUNT);
@@ -49,13 +64,21 @@ public class AlphanumericLedDisplay extends Control {
 	private final DoubleProperty pixelHeight = new SimpleDoubleProperty(this, "pixelHeight", DEFAULT_PIXEL_SIZE);
 	private final DoubleProperty pixelGapX = new SimpleDoubleProperty(this, "pixelGapX", DEFAULT_PIXEL_GAP);
 	private final DoubleProperty pixelGapY = new SimpleDoubleProperty(this, "pixelGapY", DEFAULT_PIXEL_GAP);
+	private final StringProperty text = new SimpleStringProperty(this, "text");
 
-	
 	// public void print(String text) {
 	//
 	// }
 
 	public void print(String text, int posX, int posY) {
+		if (textProperty().isBound()) {
+
+			// XXX throw
+			return;
+		}
+		
+		
+
 		int lastPos = Math.min(getCharCount(), posX + text.length());
 		int charIndex = 0;
 		for (; posX < lastPos; posX++) {
@@ -100,7 +123,7 @@ public class AlphanumericLedDisplay extends Control {
 		}
 		return pane;
 	}
-	
+
 	private void refresh() {
 		getChildren().clear();
 		getChildren().add(createPane());
@@ -200,6 +223,18 @@ public class AlphanumericLedDisplay extends Control {
 
 	public final void setPixelGapY(final double pixelGapY) {
 		this.pixelGapYProperty().set(pixelGapY);
+	}
+
+	public final StringProperty textProperty() {
+		return this.text;
+	}
+
+	public final java.lang.String getText() {
+		return this.textProperty().get();
+	}
+
+	public final void setText(final java.lang.String text) {
+		this.textProperty().set(text);
 	}
 
 }
