@@ -6,9 +6,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory;
 import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import leddisplay.AlphanumericLedDisplay;
+import leddisplay.font.PixelFontLoader;
 
 public class TestInterpolationController {
 	@FXML
@@ -16,13 +19,16 @@ public class TestInterpolationController {
 	@FXML
 	private Spinner<Double> pixelWidthSpinner, pixelHeightSpinner, pixelGapXSpinner, pixelGapYSpinner;
 	@FXML
+	private TextArea textArea;
+	@FXML
 	private AnchorPane displayPane;
 	
 	private AlphanumericLedDisplay display;
 	
 	@FXML
 	private void initialize() {
-		display = new AlphanumericLedDisplay();
+		PixelFontLoader font = new PixelFontLoader("fonts\\casio-fx-9860gii.ttf", 7);
+		display = new AlphanumericLedDisplay(font);
 		
 		initIntegerSpinner(lineCountSpinner, display.lineCountProperty(), 1, 100, AlphanumericLedDisplay.DEFAULT_LINE_COUNT, 1);
 		initIntegerSpinner(charCountSpinner, display.charCountProperty(), 1, 100, AlphanumericLedDisplay.DEFAULT_CHAR_COUNT, 1);
@@ -32,6 +38,7 @@ public class TestInterpolationController {
 		initDoubleSpinner(pixelHeightSpinner, display.pixelHeightProperty(), 0.0, 100.0, 7.0, 1.0);
 		initDoubleSpinner(pixelGapXSpinner, display.pixelGapXProperty(), 0.0, 100.0, AlphanumericLedDisplay.DEFAULT_PIXEL_GAP, 1.0);
 		initDoubleSpinner(pixelGapYSpinner, display.pixelGapYProperty(), 0.0, 100.0, AlphanumericLedDisplay.DEFAULT_PIXEL_GAP, 1.0);
+		display.textProperty().bind(textArea.textProperty());
 		
 		displayPane.getChildren().add(display);
 	}
