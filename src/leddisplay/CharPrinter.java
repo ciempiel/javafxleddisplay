@@ -45,7 +45,7 @@ class CharPrinter {
 
 	public void setText(String text) {
 		if (text != null) {
-			String[] splited = text.split(System.lineSeparator());
+			String[] splited = text.split("\r\n|\n");
 			int length = Math.min(lineCount, splited.length);
 			for (int i=0; i<length; i++) {
 				printLine(i, splited[i]);
