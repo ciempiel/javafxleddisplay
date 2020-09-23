@@ -68,6 +68,7 @@ class AlphanumericChar extends Control {
 		pixel.setHeight(display.getPixelHeight());
 		pixel.setLayoutX(getPixelLayoutX(indexX));
 		pixel.setLayoutY(getPixelLayoutY(indexY));
+		pixel.setFill(CLEAR_COLOR);
 		return pixel;
 	}
 	
