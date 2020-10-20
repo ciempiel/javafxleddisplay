@@ -2,14 +2,17 @@ package leddisplay;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import leddisplay.font.PixelChar;
 import leddisplay.font.PixelFont;
 import leddisplay.font.Test5x7PixelFontABC;
@@ -21,8 +24,12 @@ public class AlphanumericLedDisplay extends Control {
 	public static final int DEFAULT_PIXEL_COUNT_Y = 7;
 	public static final double DEFAULT_PIXEL_SIZE = 10.0;
 	public static final double DEFAULT_PIXEL_GAP = 2.0;
-
+	public static final Color DEFAULT_PIXEL_ON_COLOR = Color.rgb(21, 57, 31);
+	public static final Color DEFAULT_PIXEL_OFF_COLOR = Color.rgb(92, 114, 98);
+	public static final Color DEFAULT_BACKLIGHT_COLOR = Color.rgb(87, 164, 72);
+	
 	private final PixelFont font;
+	private Pane pane;
 	private AlphanumericChar[][] alphanumerics;
 
 	public AlphanumericLedDisplay() {
@@ -41,7 +48,7 @@ public class AlphanumericLedDisplay extends Control {
 		pixelHeight.addListener((observable, newValue, oldValue) -> refresh());
 		pixelGapX.addListener((observable, newValue, oldValue) -> refresh());
 		pixelGapY.addListener((observable, newValue, oldValue) -> refresh());
-		
+
 		text.addListener((observable, oldValue, newValue) -> {
 			if (text.isBound()) {
 				CharPrinter printer = new CharPrinter(getLineCount(), getCharCount());
@@ -54,6 +61,9 @@ public class AlphanumericLedDisplay extends Control {
 				});
 			}
 		});
+		pixelOnColor.addListener((observable, oldValue, newValue) -> updateColors());
+		pixelOffColor.addListener((observable, oldValue, newValue) -> updateColors());
+		backlightColor.addListener((observable, oldValue, newValue) -> updateColors());
 	}
 
 	private final IntegerProperty lineCount = new SimpleIntegerProperty(this, "lineCount", DEFAULT_LINE_COUNT);
@@ -65,6 +75,9 @@ public class AlphanumericLedDisplay extends Control {
 	private final DoubleProperty pixelGapX = new SimpleDoubleProperty(this, "pixelGapX", DEFAULT_PIXEL_GAP);
 	private final DoubleProperty pixelGapY = new SimpleDoubleProperty(this, "pixelGapY", DEFAULT_PIXEL_GAP);
 	private final StringProperty text = new SimpleStringProperty(this, "text");
+	private final ObjectProperty<Color> pixelOnColor = new SimpleObjectProperty<>(this, "pixelOnColor", DEFAULT_PIXEL_ON_COLOR);
+	private final ObjectProperty<Color> pixelOffColor = new SimpleObjectProperty<>(this, "pixelOffColor", DEFAULT_PIXEL_OFF_COLOR);
+	private final ObjectProperty<Color> backlightColor = new SimpleObjectProperty<>(this, "backlightColor", DEFAULT_BACKLIGHT_COLOR);
 
 	// public void print(String text) {
 	//
@@ -76,8 +89,6 @@ public class AlphanumericLedDisplay extends Control {
 			// XXX throw
 			return;
 		}
-		
-		
 
 		int lastPos = Math.min(getCharCount(), posX + text.length());
 		int charIndex = 0;
@@ -107,9 +118,9 @@ public class AlphanumericLedDisplay extends Control {
 	}
 
 	private Pane createPane() {
-		Pane pane = new Pane();
+		pane = new Pane();
 		alphanumerics = new AlphanumericChar[getCharCount()][getLineCount()];
-		pane.setStyle("-fx-background-color: #57a448");
+		setPaneColor();
 		double width = AlphanumericChar.calcWidth(this);
 		double height = AlphanumericChar.calcHeight(this);
 		for (int i = 0; i < getCharCount(); i++) {
@@ -123,10 +134,24 @@ public class AlphanumericLedDisplay extends Control {
 		}
 		return pane;
 	}
+	
+	private void setPaneColor() {
+		String webColor = String.valueOf(getBacklightColor()).replace("0x", "#");
+		pane.setStyle("-fx-background-color: " + webColor);
+	}
 
 	private void refresh() {
 		getChildren().clear();
 		getChildren().add(createPane());
+	}
+	
+	private void updateColors() {
+		for (int i = 0; i < getCharCount(); i++) {
+			for (int j = 0; j < getLineCount(); j++) {
+				alphanumerics[i][j].updatePixels();
+			}
+		}
+		setPaneColor();
 	}
 
 	public final IntegerProperty lineCountProperty() {
@@ -235,6 +260,42 @@ public class AlphanumericLedDisplay extends Control {
 
 	public final void setText(final java.lang.String text) {
 		this.textProperty().set(text);
+	}
+
+	public final ObjectProperty<Color> pixelOnColorProperty() {
+		return this.pixelOnColor;
+	}
+
+	public final javafx.scene.paint.Color getPixelOnColor() {
+		return this.pixelOnColorProperty().get();
+	}
+
+	public final void setPixelOnColor(final javafx.scene.paint.Color pixelOnColor) {
+		this.pixelOnColorProperty().set(pixelOnColor);
+	}
+
+	public final ObjectProperty<Color> pixelOffColorProperty() {
+		return this.pixelOffColor;
+	}
+
+	public final javafx.scene.paint.Color getPixelOffColor() {
+		return this.pixelOffColorProperty().get();
+	}
+
+	public final void setPixelOffColor(final javafx.scene.paint.Color pixelOffColor) {
+		this.pixelOffColorProperty().set(pixelOffColor);
+	}
+
+	public final ObjectProperty<Color> backlightColorProperty() {
+		return this.backlightColor;
+	}
+
+	public final javafx.scene.paint.Color getBacklightColor() {
+		return this.backlightColorProperty().get();
+	}
+
+	public final void setBacklightColor(final javafx.scene.paint.Color backlightColor) {
+		this.backlightColorProperty().set(backlightColor);
 	}
 
 }

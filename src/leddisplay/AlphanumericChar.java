@@ -6,28 +6,32 @@ import javafx.scene.control.SkinBase;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import leddisplay.font.EmptyPixelChar;
 import leddisplay.font.PixelChar;
 
 class AlphanumericChar extends Control {
-	private final static Color SET_COLOR = Color.rgb(21, 57, 31);
-	private final static Color CLEAR_COLOR = Color.rgb(92, 114, 98);
-
 	private final AlphanumericLedDisplay display;
-
 	private final Pane pane;
 
 	private Rectangle[][] pixels;
+	private PixelChar pixelMatrix;
 
 	public AlphanumericChar(AlphanumericLedDisplay display) {
 		super();
 		this.display = display;
 		pane = new Pane();
+		pixelMatrix = new EmptyPixelChar();
 	}
 
 	public void setPixelMatrix(PixelChar pixelMatrix) {
+		this.pixelMatrix = pixelMatrix;
+		updatePixels();
+	}
+	
+	public void updatePixels() {
 		for (int i = 0; i < display.getPixelCountX(); i++) {
 			for (int j = 0; j < display.getPixelCountY(); j++) {
-				Color color = pixelMatrix.isPixelSet(i, j) ? SET_COLOR : CLEAR_COLOR;
+				Color color = pixelMatrix.isPixelSet(i, j) ? display.getPixelOnColor() : display.getPixelOffColor();
 				pixels[i][j].setFill(color);
 			}
 		}
@@ -36,7 +40,7 @@ class AlphanumericChar extends Control {
 	public void clearPixel() {
 		for (int i = 0; i < display.getPixelCountX(); i++) {
 			for (int j = 0; j < display.getPixelCountY(); j++) {
-				pixels[i][j].setFill(CLEAR_COLOR);
+				pixels[i][j].setFill(display.getPixelOffColor());
 			}
 		}
 	}
@@ -68,7 +72,7 @@ class AlphanumericChar extends Control {
 		pixel.setHeight(display.getPixelHeight());
 		pixel.setLayoutX(getPixelLayoutX(indexX));
 		pixel.setLayoutY(getPixelLayoutY(indexY));
-		pixel.setFill(CLEAR_COLOR);
+		pixel.setFill(display.getPixelOffColor());
 		return pixel;
 	}
 	
