@@ -8,6 +8,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import javafx.scene.control.SkinBase;
@@ -117,12 +119,12 @@ public class AlphanumericLedDisplay extends Control {
 	protected Skin<?> createDefaultSkin() {
 		return new SkinBase<AlphanumericLedDisplay>(this) {
 			{
-				getChildren().add(createPane());
+				getChildren().add(createNode());
 			}
 		};
 	}
 
-	private Pane createPane() {
+	private Node createNode() {
 		pane = new Pane();
 		alphanumerics = new AlphanumericChar[getCharCount()][getLineCount()];
 		setPaneColor();
@@ -137,17 +139,17 @@ public class AlphanumericLedDisplay extends Control {
 				pane.getChildren().add(alphanumeric);
 			}
 		}
-		return pane;
+		return new Group(pane); // XXX if not wrapped, background when padding doesn't work
 	}
 
 	private void setPaneColor() {
 		String webColor = String.valueOf(getBacklightColor()).replace("0x", "#");
-		pane.setStyle("-fx-background-color: " + webColor);
+		setStyle("-fx-background-color: " + webColor);
 	}
 
 	private void refresh() {
 		getChildren().clear();
-		getChildren().add(createPane());
+		getChildren().add(createNode());
 	}
 
 	private void updateColors() {
