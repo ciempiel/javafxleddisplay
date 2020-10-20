@@ -17,7 +17,7 @@ public class TestInterpolationController {
 	@FXML
 	private Spinner<Integer> lineCountSpinner, charCountSpinner, pixelXCountSpinner, pixelYCountSpinner;
 	@FXML
-	private Spinner<Double> pixelWidthSpinner, pixelHeightSpinner, pixelGapXSpinner, pixelGapYSpinner;
+	private Spinner<Double> pixelWidthSpinner, pixelHeightSpinner, pixelGapXSpinner, pixelGapYSpinner, charGapXSpinner, charGapYSpinner;
 	@FXML
 	private TextArea textArea;
 	@FXML
@@ -40,6 +40,8 @@ public class TestInterpolationController {
 		initDoubleSpinner(pixelHeightSpinner, display.pixelHeightProperty(), 0.0, 100.0, 7.0, 1.0);
 		initDoubleSpinner(pixelGapXSpinner, display.pixelGapXProperty(), 0.0, 100.0, AlphanumericLedDisplay.DEFAULT_PIXEL_GAP, 1.0);
 		initDoubleSpinner(pixelGapYSpinner, display.pixelGapYProperty(), 0.0, 100.0, AlphanumericLedDisplay.DEFAULT_PIXEL_GAP, 1.0);
+		initDoubleSpinner(charGapXSpinner, display.charGapXProperty(), 0.0, 100.0, AlphanumericLedDisplay.DEFAULT_CHAR_GAP, 1.0);
+		initDoubleSpinner(charGapYSpinner, display.charGapYProperty(), 0.0, 100.0, AlphanumericLedDisplay.DEFAULT_CHAR_GAP, 1.0);
 		display.textProperty().bind(textArea.textProperty());
 		pixelOffColorPicker.setValue(AlphanumericLedDisplay.DEFAULT_PIXEL_OFF_COLOR);
 		display.pixelOffColorProperty().bind(pixelOffColorPicker.valueProperty());
