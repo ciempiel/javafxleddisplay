@@ -3,11 +3,11 @@ package leddisplay.testapps;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.fxml.FXML;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory;
 import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import leddisplay.AlphanumericLedDisplay;
@@ -22,6 +22,8 @@ public class TestInterpolationController {
 	private TextArea textArea;
 	@FXML
 	private AnchorPane displayPane;
+	@FXML
+	private ColorPicker pixelOffColorPicker, pixelOnColorPicker, backlightColorPicker;
 	
 	private AlphanumericLedDisplay display;
 	
@@ -39,7 +41,12 @@ public class TestInterpolationController {
 		initDoubleSpinner(pixelGapXSpinner, display.pixelGapXProperty(), 0.0, 100.0, AlphanumericLedDisplay.DEFAULT_PIXEL_GAP, 1.0);
 		initDoubleSpinner(pixelGapYSpinner, display.pixelGapYProperty(), 0.0, 100.0, AlphanumericLedDisplay.DEFAULT_PIXEL_GAP, 1.0);
 		display.textProperty().bind(textArea.textProperty());
-		
+		pixelOffColorPicker.setValue(AlphanumericLedDisplay.DEFAULT_PIXEL_OFF_COLOR);
+		display.pixelOffColorProperty().bind(pixelOffColorPicker.valueProperty());
+		pixelOnColorPicker.setValue(AlphanumericLedDisplay.DEFAULT_PIXEL_ON_COLOR);
+		display.pixelOnColorProperty().bind(pixelOnColorPicker.valueProperty());
+		backlightColorPicker.setValue(AlphanumericLedDisplay.DEFAULT_BACKLIGHT_COLOR);
+		display.backlightColorProperty().bind(backlightColorPicker.valueProperty());
 		displayPane.getChildren().add(display);
 	}
 	

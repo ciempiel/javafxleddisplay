@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextArea?>
@@ -58,6 +59,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <Label text="Wysokość w pikselach:" GridPane.rowIndex="3" />
@@ -86,6 +88,12 @@
                               <Insets bottom="5.0" top="5.0" />
                            </GridPane.margin>
                         </TextArea>
+                        <Label text="Kolor zgaszonego pixela:" GridPane.rowIndex="9" />
+                        <Label text="Kolor zapalonego pixela:" GridPane.rowIndex="10" />
+                        <Label text="Kolor podświetlenia:" GridPane.rowIndex="11" />
+                        <ColorPicker fx:id="pixelOffColorPicker" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <ColorPicker fx:id="pixelOnColorPicker" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                        <ColorPicker fx:id="backlightColorPicker" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                      </children>
                   </GridPane>
                </children>
