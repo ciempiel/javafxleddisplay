@@ -77,18 +77,18 @@ class AlphanumericChar extends Control {
 	}
 	
 	private double getPixelLayoutX(int indexX) {
-		return (display.getPixelWidth() + display.getPixelGapX()) * indexX + display.getPixelGapX();
+		return (display.getPixelWidth() + display.getPixelGapX()) * indexX;
 	}
 	
 	private double getPixelLayoutY(int indexY) {
-		return (display.getPixelHeight() + display.getPixelGapY()) * indexY + display.getPixelGapY();
+		return (display.getPixelHeight() + display.getPixelGapY()) * indexY;
 	}
 	
 	public static double calcWidth(AlphanumericLedDisplay display) {
-		return (display.getPixelWidth() + display.getPixelGapX()) * display.getPixelCountX() + display.getPixelGapX();
+		return (display.getPixelWidth() + display.getPixelGapX()) * display.getPixelCountX() - display.getPixelGapX();
 	}
 	
 	public static double calcHeight(AlphanumericLedDisplay display) {
-		return (display.getPixelHeight() + display.getPixelGapY()) * display.getPixelCountY() + display.getPixelGapY();
+		return (display.getPixelHeight() + display.getPixelGapY()) * display.getPixelCountY() - display.getPixelGapY();
 	}
 }
