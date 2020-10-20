@@ -24,10 +24,11 @@ public class AlphanumericLedDisplay extends Control {
 	public static final int DEFAULT_PIXEL_COUNT_Y = 7;
 	public static final double DEFAULT_PIXEL_SIZE = 10.0;
 	public static final double DEFAULT_PIXEL_GAP = 2.0;
+	public static final double DEFAULT_CHAR_GAP = 4.0;
 	public static final Color DEFAULT_PIXEL_ON_COLOR = Color.rgb(21, 57, 31);
 	public static final Color DEFAULT_PIXEL_OFF_COLOR = Color.rgb(92, 114, 98);
 	public static final Color DEFAULT_BACKLIGHT_COLOR = Color.rgb(87, 164, 72);
-	
+
 	private final PixelFont font;
 	private Pane pane;
 	private AlphanumericChar[][] alphanumerics;
@@ -48,6 +49,8 @@ public class AlphanumericLedDisplay extends Control {
 		pixelHeight.addListener((observable, newValue, oldValue) -> refresh());
 		pixelGapX.addListener((observable, newValue, oldValue) -> refresh());
 		pixelGapY.addListener((observable, newValue, oldValue) -> refresh());
+		charGapX.addListener((observable, newValue, oldValue) -> refresh());
+		charGapY.addListener((observable, newValue, oldValue) -> refresh());
 
 		text.addListener((observable, oldValue, newValue) -> {
 			if (text.isBound()) {
@@ -74,6 +77,8 @@ public class AlphanumericLedDisplay extends Control {
 	private final DoubleProperty pixelHeight = new SimpleDoubleProperty(this, "pixelHeight", DEFAULT_PIXEL_SIZE);
 	private final DoubleProperty pixelGapX = new SimpleDoubleProperty(this, "pixelGapX", DEFAULT_PIXEL_GAP);
 	private final DoubleProperty pixelGapY = new SimpleDoubleProperty(this, "pixelGapY", DEFAULT_PIXEL_GAP);
+	private final DoubleProperty charGapX = new SimpleDoubleProperty(this, "charGapX", DEFAULT_CHAR_GAP);
+	private final DoubleProperty charGapY = new SimpleDoubleProperty(this, "charGapY", DEFAULT_CHAR_GAP);
 	private final StringProperty text = new SimpleStringProperty(this, "text");
 	private final ObjectProperty<Color> pixelOnColor = new SimpleObjectProperty<>(this, "pixelOnColor", DEFAULT_PIXEL_ON_COLOR);
 	private final ObjectProperty<Color> pixelOffColor = new SimpleObjectProperty<>(this, "pixelOffColor", DEFAULT_PIXEL_OFF_COLOR);
@@ -126,15 +131,15 @@ public class AlphanumericLedDisplay extends Control {
 		for (int i = 0; i < getCharCount(); i++) {
 			for (int j = 0; j < getLineCount(); j++) {
 				AlphanumericChar alphanumeric = new AlphanumericChar(this);
-				alphanumeric.setLayoutX(width * i);
-				alphanumeric.setLayoutY(height * j);
+				alphanumeric.setLayoutX((width + getCharGapX()) * i);
+				alphanumeric.setLayoutY((height + getCharGapY()) * j);
 				alphanumerics[i][j] = alphanumeric;
 				pane.getChildren().add(alphanumeric);
 			}
 		}
 		return pane;
 	}
-	
+
 	private void setPaneColor() {
 		String webColor = String.valueOf(getBacklightColor()).replace("0x", "#");
 		pane.setStyle("-fx-background-color: " + webColor);
@@ -144,7 +149,7 @@ public class AlphanumericLedDisplay extends Control {
 		getChildren().clear();
 		getChildren().add(createPane());
 	}
-	
+
 	private void updateColors() {
 		for (int i = 0; i < getCharCount(); i++) {
 			for (int j = 0; j < getLineCount(); j++) {
@@ -248,6 +253,30 @@ public class AlphanumericLedDisplay extends Control {
 
 	public final void setPixelGapY(final double pixelGapY) {
 		this.pixelGapYProperty().set(pixelGapY);
+	}
+
+	public final DoubleProperty charGapXProperty() {
+		return this.charGapX;
+	}
+
+	public final double getCharGapX() {
+		return this.charGapXProperty().get();
+	}
+
+	public final void setCharGapX(final double charGapX) {
+		this.charGapXProperty().set(charGapX);
+	}
+
+	public final DoubleProperty charGapYProperty() {
+		return this.charGapY;
+	}
+
+	public final double getCharGapY() {
+		return this.charGapYProperty().get();
+	}
+
+	public final void setCharGapY(final double charGapY) {
+		this.charGapYProperty().set(charGapY);
 	}
 
 	public final StringProperty textProperty() {
