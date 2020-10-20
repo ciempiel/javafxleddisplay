@@ -36,6 +36,7 @@ public class TestInterpolationController {
 	private void initialize() {
 		PixelFontLoader font = new PixelFontLoader("fonts\\casio-fx-9860gii.ttf", 7);
 		display = new AlphanumericLedDisplay(font);
+		display.setPadding(new Insets(AlphanumericLedDisplay.DEFAULT_PADDING));
 
 		initIntegerSpinner(lineCountSpinner, display.lineCountProperty(), 1, 100, AlphanumericLedDisplay.DEFAULT_LINE_COUNT, 1);
 		initIntegerSpinner(charCountSpinner, display.charCountProperty(), 1, 100, AlphanumericLedDisplay.DEFAULT_CHAR_COUNT, 1);
@@ -47,10 +48,10 @@ public class TestInterpolationController {
 		initDoubleSpinner(pixelGapYSpinner, display.pixelGapYProperty(), 0.0, 100.0, AlphanumericLedDisplay.DEFAULT_PIXEL_GAP, 1.0);
 		initDoubleSpinner(charGapXSpinner, display.charGapXProperty(), 0.0, 100.0, AlphanumericLedDisplay.DEFAULT_CHAR_GAP, 1.0);
 		initDoubleSpinner(charGapYSpinner, display.charGapYProperty(), 0.0, 100.0, AlphanumericLedDisplay.DEFAULT_CHAR_GAP, 1.0);
-		initPaddingSpinner(paddingTopSpinner, display, (p, x) -> new Insets(x, p.getRight(), p.getBottom(), p.getLeft()));
-		initPaddingSpinner(paddingRightSpinner, display, (p, x) -> new Insets(p.getTop(), x, p.getBottom(), p.getLeft()));
-		initPaddingSpinner(paddingBottomSpinner, display, (p, x) -> new Insets(p.getTop(), p.getRight(), x, p.getLeft()));
-		initPaddingSpinner(paddingLeftSpinner, display, (p, x) -> new Insets(p.getTop(), p.getRight(), p.getBottom(), x));
+		initPaddingSpinner(paddingTopSpinner, display, AlphanumericLedDisplay.DEFAULT_PADDING, (p, x) -> new Insets(x, p.getRight(), p.getBottom(), p.getLeft()));
+		initPaddingSpinner(paddingRightSpinner, display, AlphanumericLedDisplay.DEFAULT_PADDING, (p, x) -> new Insets(p.getTop(), x, p.getBottom(), p.getLeft()));
+		initPaddingSpinner(paddingBottomSpinner, display, AlphanumericLedDisplay.DEFAULT_PADDING, (p, x) -> new Insets(p.getTop(), p.getRight(), x, p.getLeft()));
+		initPaddingSpinner(paddingLeftSpinner, display, AlphanumericLedDisplay.DEFAULT_PADDING, (p, x) -> new Insets(p.getTop(), p.getRight(), p.getBottom(), x));
 		display.textProperty().bind(textArea.textProperty());
 		pixelOffColorPicker.setValue(AlphanumericLedDisplay.DEFAULT_PIXEL_OFF_COLOR);
 		display.pixelOffColorProperty().bind(pixelOffColorPicker.valueProperty());
@@ -73,8 +74,8 @@ public class TestInterpolationController {
 		property.bind(factory.valueProperty());
 	}
 
-	private void initPaddingSpinner(Spinner<Double> spinner, Region region, BiFunction<Insets, Double, Insets> modifyFunction) {
-		DoubleSpinnerValueFactory factory = new DoubleSpinnerValueFactory(0.0, 100.0, 0.0, 1.0);
+	private void initPaddingSpinner(Spinner<Double> spinner, Region region, double initValue, BiFunction<Insets, Double, Insets> modifyFunction) {
+		DoubleSpinnerValueFactory factory = new DoubleSpinnerValueFactory(0.0, 100.0, initValue, 1.0);
 		spinner.setValueFactory(factory);
 		factory.valueProperty().addListener((observable, oldValue, newValue) -> {
 			Insets oldPadding = region.getPadding();

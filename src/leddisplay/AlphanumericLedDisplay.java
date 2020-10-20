@@ -27,6 +27,7 @@ public class AlphanumericLedDisplay extends Control {
 	public static final double DEFAULT_PIXEL_SIZE = 10.0;
 	public static final double DEFAULT_PIXEL_GAP = 2.0;
 	public static final double DEFAULT_CHAR_GAP = 4.0;
+	public static final double DEFAULT_PADDING = 2.0;
 	public static final Color DEFAULT_PIXEL_ON_COLOR = Color.rgb(21, 57, 31);
 	public static final Color DEFAULT_PIXEL_OFF_COLOR = Color.rgb(92, 114, 98);
 	public static final Color DEFAULT_BACKLIGHT_COLOR = Color.rgb(87, 164, 72);
