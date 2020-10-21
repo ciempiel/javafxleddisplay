@@ -26,7 +26,7 @@ class IntArrayPixelChar implements PixelChar {
 		}
 		x -= leftGap;
 		int index = pixelWidth * y + x + pixelWidth;
-		if (index >= pixels.length) {
+		if (index < 0 || index >= pixels.length) { // XXX index < 0
 			return false;
 		}
 		return pixels[index] != 0;
