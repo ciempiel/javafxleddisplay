@@ -15,6 +15,7 @@ import javafx.scene.control.Skin;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import leddisplay.font.PixelChar;
 import leddisplay.font.PixelFont;
 import leddisplay.font.Test5x7PixelFontABC;
@@ -32,7 +33,7 @@ public class AlphanumericLedDisplay extends Control {
 	public static final Color DEFAULT_PIXEL_OFF_COLOR = Color.rgb(92, 114, 98);
 	public static final Color DEFAULT_BACKLIGHT_COLOR = Color.rgb(87, 164, 72);
 
-	private final PixelFont font;
+	private final PixelFont pixelFont;
 	private Pane pane;
 	private AlphanumericChar[][] alphanumerics;
 
@@ -42,7 +43,7 @@ public class AlphanumericLedDisplay extends Control {
 
 	public AlphanumericLedDisplay(PixelFont font) {
 		super();
-		this.font = font;
+		this.pixelFont = font;
 		// XXX refresh all - binding couse memory leakage
 		lineCount.addListener((observable, newValue, oldValue) -> refresh());
 		charCount.addListener((observable, newValue, oldValue) -> refresh());
@@ -86,6 +87,7 @@ public class AlphanumericLedDisplay extends Control {
 	private final ObjectProperty<Color> pixelOnColor = new SimpleObjectProperty<>(this, "pixelOnColor", DEFAULT_PIXEL_ON_COLOR);
 	private final ObjectProperty<Color> pixelOffColor = new SimpleObjectProperty<>(this, "pixelOffColor", DEFAULT_PIXEL_OFF_COLOR);
 	private final ObjectProperty<Color> backlightColor = new SimpleObjectProperty<>(this, "backlightColor", DEFAULT_BACKLIGHT_COLOR);
+	private final ObjectProperty<Font> font = new SimpleObjectProperty<>(this, "font", Font.getDefault());
 
 	// public void print(String text) {
 	//
@@ -102,7 +104,7 @@ public class AlphanumericLedDisplay extends Control {
 		int charIndex = 0;
 		for (; posX < lastPos; posX++) {
 			char c = text.charAt(charIndex);
-			PixelChar pixelMatrix = font.getChar(c);
+			PixelChar pixelMatrix = pixelFont.getChar(c);
 			alphanumerics[posX][posY].setPixelMatrix(pixelMatrix);
 			charIndex++;
 		}
@@ -328,6 +330,18 @@ public class AlphanumericLedDisplay extends Control {
 
 	public final void setBacklightColor(final javafx.scene.paint.Color backlightColor) {
 		this.backlightColorProperty().set(backlightColor);
+	}
+
+	public final ObjectProperty<Font> fontProperty() {
+		return this.font;
+	}
+
+	public final javafx.scene.text.Font getFont() {
+		return this.fontProperty().get();
+	}
+
+	public final void setFont(final javafx.scene.text.Font font) {
+		this.fontProperty().set(font);
 	}
 
 }
