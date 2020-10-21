@@ -12,15 +12,15 @@ import java.util.HashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PixelFontLoader implements PixelFont {
-	private static final Logger logger = LoggerFactory.getLogger(PixelFontLoader.class);
+public class PixelFontMapper implements PixelFont {
+	private static final Logger logger = LoggerFactory.getLogger(PixelFontMapper.class);
 	
 	private final int size;
 	private final Font font;
 	
 	private HashMap<Character, PixelChar> buffered = new HashMap<>();
 
-	public PixelFontLoader(String family, int size) {
+	public PixelFontMapper(String family, int size) {
 		this.size = size;
 		Font rawFont = new Font(family, Font.PLAIN, size);
 		if (!rawFont.getFamily().equals(family)) {

@@ -18,7 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import leddisplay.font.PixelChar;
 import leddisplay.font.PixelFont;
-import leddisplay.font.PixelFontLoader;
+import leddisplay.font.PixelFontMapper;
 
 public class AlphanumericLedDisplay extends Control {
 	public static final int DEFAULT_LINE_COUNT = 2;
@@ -44,7 +44,7 @@ public class AlphanumericLedDisplay extends Control {
 	public AlphanumericLedDisplay(Font font) {
 		super();
 		setFont(font);
-		this.pixelFont = new PixelFontLoader(getFont().getFamily(), (int)getFont().getSize());
+		this.pixelFont = new PixelFontMapper(getFont().getFamily(), (int)getFont().getSize());
 		
 		// XXX refresh all - binding couse memory leakage
 		lineCount.addListener((observable, newValue, oldValue) -> refresh());
@@ -58,7 +58,7 @@ public class AlphanumericLedDisplay extends Control {
 		charGapX.addListener((observable, newValue, oldValue) -> refresh());
 		charGapY.addListener((observable, newValue, oldValue) -> refresh());
 		this.font.addListener((observable, newValue, oldValue) -> {
-			pixelFont = new PixelFontLoader(getFont().getFamily(), (int)getFont().getSize());
+			pixelFont = new PixelFontMapper(getFont().getFamily(), (int)getFont().getSize());
 			refreshAllText();
 		});
 
