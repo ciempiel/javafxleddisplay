@@ -2,17 +2,21 @@ package leddisplay.testapps;
 
 import java.util.function.BiFunction;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.ObjectBinding;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory.DoubleSpinnerValueFactory;
 import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import leddisplay.AlphanumericLedDisplay;
 
@@ -21,13 +25,15 @@ public class TestInterpolationController {
 	private Spinner<Integer> lineCountSpinner, charCountSpinner, pixelXCountSpinner, pixelYCountSpinner;
 	@FXML
 	private Spinner<Double> pixelWidthSpinner, pixelHeightSpinner, pixelGapXSpinner, pixelGapYSpinner, charGapXSpinner, charGapYSpinner, 
-		paddingTopSpinner, paddingRightSpinner, paddingBottomSpinner, paddingLeftSpinner;
+		paddingTopSpinner, paddingRightSpinner, paddingBottomSpinner, paddingLeftSpinner, fontSizeSpinner;
 	@FXML
 	private TextArea textArea;
 	@FXML
 	private AnchorPane displayPane;
 	@FXML
 	private ColorPicker pixelOffColorPicker, pixelOnColorPicker, backlightColorPicker;
+	@FXML
+	private ComboBox<String> fontFamilyCombo;
 
 	private AlphanumericLedDisplay display;
 
@@ -57,6 +63,7 @@ public class TestInterpolationController {
 		display.pixelOnColorProperty().bind(pixelOnColorPicker.valueProperty());
 		backlightColorPicker.setValue(AlphanumericLedDisplay.DEFAULT_BACKLIGHT_COLOR);
 		display.backlightColorProperty().bind(backlightColorPicker.valueProperty());
+		initFontControl();
 		displayPane.getChildren().add(display);
 	}
 
@@ -80,6 +87,21 @@ public class TestInterpolationController {
 			Insets newPadding = modifyFunction.apply(oldPadding, newValue);
 			region.setPadding(newPadding);
 		});
+	}
+	
+	private void initFontControl() {
+		fontFamilyCombo.getItems().addAll(Font.getFamilies());
+		Font defaultFont = display.getFont();
+		fontFamilyCombo.setValue(defaultFont.getFamily());
+		DoubleSpinnerValueFactory factory = new DoubleSpinnerValueFactory(1, 100, defaultFont.getSize(), 1);
+		fontSizeSpinner.setValueFactory(factory);
+		
+		ObjectBinding<Font> fontBinding = Bindings.createObjectBinding(() -> {
+			String family = fontFamilyCombo.getValue();
+			double size = fontSizeSpinner.getValue();
+			return Font.font(family, size);
+		}, fontFamilyCombo.valueProperty(), fontSizeSpinner.valueProperty());
+		display.fontProperty().bind(fontBinding);
 	}
 	
 	public void setStage(Stage primaryStage) {
