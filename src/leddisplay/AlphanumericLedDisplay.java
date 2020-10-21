@@ -33,7 +33,7 @@ public class AlphanumericLedDisplay extends Control {
 	public static final Color DEFAULT_PIXEL_OFF_COLOR = Color.rgb(92, 114, 98);
 	public static final Color DEFAULT_BACKLIGHT_COLOR = Color.rgb(87, 164, 72);
 
-	private final PixelFont pixelFont;
+	private PixelFont pixelFont;
 	private Pane pane;
 	private AlphanumericChar[][] alphanumerics;
 
@@ -43,7 +43,9 @@ public class AlphanumericLedDisplay extends Control {
 
 	public AlphanumericLedDisplay(Font font) {
 		super();
-		this.pixelFont = new PixelFontLoader(font.getFamily(), (int)font.getSize());
+		setFont(font);
+		this.pixelFont = new PixelFontLoader(getFont().getFamily(), (int)getFont().getSize());
+		
 		// XXX refresh all - binding couse memory leakage
 		lineCount.addListener((observable, newValue, oldValue) -> refresh());
 		charCount.addListener((observable, newValue, oldValue) -> refresh());
@@ -55,6 +57,10 @@ public class AlphanumericLedDisplay extends Control {
 		pixelGapY.addListener((observable, newValue, oldValue) -> refresh());
 		charGapX.addListener((observable, newValue, oldValue) -> refresh());
 		charGapY.addListener((observable, newValue, oldValue) -> refresh());
+		this.font.addListener((observable, newValue, oldValue) -> {
+			pixelFont = new PixelFontLoader(getFont().getFamily(), (int)getFont().getSize());
+			refreshAllText();
+		});
 
 		text.addListener((observable, oldValue, newValue) -> {
 			if (text.isBound()) {
@@ -153,6 +159,16 @@ public class AlphanumericLedDisplay extends Control {
 	private void refresh() {
 		getChildren().clear();
 		getChildren().add(createNode());
+		refreshAllText();
+	}
+
+	private void refreshAllText() {
+		CharPrinter printer = new CharPrinter(getLineCount(), getCharCount());
+		printer.setText(getText());
+		printer.consumeChanges((posX, posY, c) -> {
+			PixelChar pixelMatrix = pixelFont.getChar(c);
+			alphanumerics[posX][posY].setPixelMatrix(pixelMatrix);
+		});
 	}
 
 	private void updateColors() {
