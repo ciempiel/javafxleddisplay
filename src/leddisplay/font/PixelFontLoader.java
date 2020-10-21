@@ -3,14 +3,10 @@ package leddisplay.font;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 
 import org.slf4j.Logger;
@@ -19,16 +15,18 @@ import org.slf4j.LoggerFactory;
 public class PixelFontLoader implements PixelFont {
 	private static final Logger logger = LoggerFactory.getLogger(PixelFontLoader.class);
 	
-	private final String name;
 	private final int size;
+	private final Font font;
 	
 	private HashMap<Character, PixelChar> buffered = new HashMap<>();
-	private Font font;
 
-	public PixelFontLoader(String name, int size) {
-		this.name = name;
+	public PixelFontLoader(String family, int size) {
 		this.size = size;
-		loadFont();
+		Font rawFont = new Font("DD", Font.PLAIN, size);
+		if (!rawFont.getFamily().equals(family)) {
+			logger.warn(String.format("Could not find % font. Using default.", family));
+		}
+		font = rawFont.deriveFont((float)size);
 	}
 
 	@Override
@@ -64,13 +62,4 @@ public class PixelFontLoader implements PixelFont {
 		return new IntArrayPixelChar(pixels, new Dimension(width, height), size);
 	}
 
-	private void loadFont() {
-		try {
-			InputStream stream = new FileInputStream(name);
-			Font rawFont = Font.createFont(Font.TRUETYPE_FONT, stream);
-			font = rawFont.deriveFont((float)size);
-		} catch (FontFormatException | IOException e) {
-			logger.error("Unable to load font.", e);
-		}
-	}
 }

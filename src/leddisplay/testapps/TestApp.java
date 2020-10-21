@@ -26,7 +26,7 @@ public class TestApp extends Application {
 
 	private void addDisplay(AnchorPane pane, Stage stage) {
 		// ------------------------------------------------------------------
-		AlphanumericLedDisplay display = new AlphanumericLedDisplay(new PixelFontLoader("fonts\\casio-fx-9860gii.ttf", 7));
+		AlphanumericLedDisplay display = new AlphanumericLedDisplay();
 		pane.getChildren().add(display);
 
 		stage.showingProperty().addListener((observable, oldValue, newValue) -> {

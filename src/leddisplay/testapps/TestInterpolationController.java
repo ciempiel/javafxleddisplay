@@ -15,7 +15,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import leddisplay.AlphanumericLedDisplay;
-import leddisplay.font.PixelFontLoader;
 
 public class TestInterpolationController {
 	@FXML
@@ -34,8 +33,7 @@ public class TestInterpolationController {
 
 	@FXML
 	private void initialize() {
-		PixelFontLoader font = new PixelFontLoader("fonts\\casio-fx-9860gii.ttf", 7);
-		display = new AlphanumericLedDisplay(font);
+		display = new AlphanumericLedDisplay();
 		display.setPadding(new Insets(AlphanumericLedDisplay.DEFAULT_PADDING));
 
 		initIntegerSpinner(lineCountSpinner, display.lineCountProperty(), 1, 100, AlphanumericLedDisplay.DEFAULT_LINE_COUNT, 1);

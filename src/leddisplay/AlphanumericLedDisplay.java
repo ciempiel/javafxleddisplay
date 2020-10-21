@@ -18,7 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import leddisplay.font.PixelChar;
 import leddisplay.font.PixelFont;
-import leddisplay.font.Test5x7PixelFontABC;
+import leddisplay.font.PixelFontLoader;
 
 public class AlphanumericLedDisplay extends Control {
 	public static final int DEFAULT_LINE_COUNT = 2;
@@ -38,12 +38,12 @@ public class AlphanumericLedDisplay extends Control {
 	private AlphanumericChar[][] alphanumerics;
 
 	public AlphanumericLedDisplay() {
-		this(new Test5x7PixelFontABC());
+		this(Font.font("Casio fx-9860GII", 7)); // XXX
 	}
 
-	public AlphanumericLedDisplay(PixelFont font) {
+	public AlphanumericLedDisplay(Font font) {
 		super();
-		this.pixelFont = font;
+		this.pixelFont = new PixelFontLoader(font.getFamily(), (int)font.getSize());
 		// XXX refresh all - binding couse memory leakage
 		lineCount.addListener((observable, newValue, oldValue) -> refresh());
 		charCount.addListener((observable, newValue, oldValue) -> refresh());
@@ -63,7 +63,7 @@ public class AlphanumericLedDisplay extends Control {
 				printer.initChanges();
 				printer.setText(newValue);
 				printer.consumeChanges((posX, posY, c) -> {
-					PixelChar pixelMatrix = font.getChar(c);
+					PixelChar pixelMatrix = pixelFont.getChar(c);
 					alphanumerics[posX][posY].setPixelMatrix(pixelMatrix);
 				});
 			}
