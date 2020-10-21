@@ -29,6 +29,9 @@ class AlphanumericChar extends Control {
 	}
 	
 	public void updatePixels() {
+		if (pixels == null) {
+			return;
+		}
 		for (int i = 0; i < display.getPixelCountX(); i++) {
 			for (int j = 0; j < display.getPixelCountY(); j++) {
 				Color color = pixelMatrix.isPixelSet(i, j) ? display.getPixelOnColor() : display.getPixelOffColor();
@@ -63,6 +66,7 @@ class AlphanumericChar extends Control {
 				pixels[i][j] = pixel;
 			}
 		}
+		updatePixels();
 		return pane;
 	}
 
