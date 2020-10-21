@@ -22,9 +22,9 @@ public class PixelFontLoader implements PixelFont {
 
 	public PixelFontLoader(String family, int size) {
 		this.size = size;
-		Font rawFont = new Font("DD", Font.PLAIN, size);
+		Font rawFont = new Font(family, Font.PLAIN, size);
 		if (!rawFont.getFamily().equals(family)) {
-			logger.warn(String.format("Could not find % font. Using default.", family));
+			logger.warn(String.format("Could not find %s font. Using default.", family));
 		}
 		font = rawFont.deriveFont((float)size);
 	}
