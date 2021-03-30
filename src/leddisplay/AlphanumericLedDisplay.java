@@ -18,7 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import leddisplay.font.PixelChar;
 import leddisplay.font.PixelFont;
-import leddisplay.font.PixelFontMapper;
+import leddisplay.font.PixelFontProvider;
 
 public class AlphanumericLedDisplay extends Control {
 	public static final int DEFAULT_LINE_COUNT = 2;
@@ -44,7 +44,7 @@ public class AlphanumericLedDisplay extends Control {
 	public AlphanumericLedDisplay(Font font) {
 		super();
 		setFont(font);
-		this.pixelFont = new PixelFontMapper(getFont().getFamily(), (int)getFont().getSize());
+		updatePixelFont();
 		
 		// XXX refresh all - binding couse memory leakage
 		lineCount.addListener((observable, newValue, oldValue) -> refresh());
@@ -58,7 +58,7 @@ public class AlphanumericLedDisplay extends Control {
 		charGapX.addListener((observable, newValue, oldValue) -> refresh());
 		charGapY.addListener((observable, newValue, oldValue) -> refresh());
 		this.font.addListener((observable, newValue, oldValue) -> {
-			pixelFont = new PixelFontMapper(getFont().getFamily(), (int)getFont().getSize());
+			updatePixelFont();
 			refreshAllText();
 		});
 
@@ -123,6 +123,10 @@ public class AlphanumericLedDisplay extends Control {
 			}
 		}
 	}
+	
+	private void updatePixelFont() {
+		pixelFont = new PixelFontProvider(getFont(), (int)getPixelCountX(), (int)getPixelCountY());
+	}
 
 	@Override
 	protected Skin<?> createDefaultSkin() {
@@ -157,6 +161,9 @@ public class AlphanumericLedDisplay extends Control {
 	}
 
 	private void refresh() {
+		// XXX poprawiæ
+		updatePixelFont();
+		
 		getChildren().clear();
 		getChildren().add(createNode());
 		refreshAllText();

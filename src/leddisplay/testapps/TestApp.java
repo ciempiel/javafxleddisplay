@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import leddisplay.AlphanumericLedDisplay;
-import leddisplay.font.PixelFontMapper;
 
 public class TestApp extends Application {
 	private AnchorPane root;
