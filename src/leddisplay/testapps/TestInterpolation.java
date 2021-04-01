@@ -17,7 +17,7 @@ public class TestInterpolation extends Application{
 			controller.setStage(primaryStage);
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
-			primaryStage.setResizable(false);
+			primaryStage.setMaximized(true);
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
