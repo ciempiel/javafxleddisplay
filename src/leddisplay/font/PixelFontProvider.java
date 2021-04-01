@@ -18,6 +18,8 @@ public class PixelFontProvider implements PixelFont {
 	private final int size;
 	private final Font font;
 	private final Dimension targetDimension;
+	
+	private HorizontalDeployment horizontalDeployment = HorizontalDeployment.CENTER;
 
 	private HashMap<Character, PixelChar> buffered = new HashMap<>();
 
@@ -53,6 +55,14 @@ public class PixelFontProvider implements PixelFont {
 		return pixelChar;
 	}
 
+	public HorizontalDeployment getHorizontalDeployment() {
+		return horizontalDeployment;
+	}
+
+	public void setHorizontalDeployment(HorizontalDeployment horizontalDeployment) {
+		this.horizontalDeployment = horizontalDeployment;
+	}
+
 	private PixelChar renderMatrix(char c) {
 		String text = Character.toString(c);
 		BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
@@ -80,11 +90,36 @@ public class PixelFontProvider implements PixelFont {
 		System.out.println("-----------");
 		
 		printPixels(pixels, width, height);
-		PixelChar result = new IndexOutOfBoundsGuardPixelChar(new PixelCharDeployer(pixels, height, fm, targetDimension));
-		printPixelChar(result);
-		return result;
+		
+		PixelsMatrix matrix = new PixelsMatrix(pixels, height);
+		
+		PixelChar deployed = deploy(matrix);
+		
+//		PixelChar result = new IndexOutOfBoundsGuardPixelChar(new PixelCharDeployer(pixels, height, fm, targetDimension));
+		printPixelChar(deployed);
+		
+		return new IndexOutOfBoundsGuardPixelChar(deployed);
 	}
-	
+
+	private PixelChar deploy(PixelsMatrix matrix) {
+		if (matrix.getEmptyColumnsCountLeft() != matrix.getWidth()) {
+			return deployDefault(matrix);
+		} else {
+			return deployEmpty(matrix);
+		}
+	}
+
+	private PixelChar deployDefault(PixelsMatrix matrix) {
+		HorizontalDeployer horizontalDeployer = new HorizontalDeployer(horizontalDeployment, targetDimension);
+		return horizontalDeployer.deploy(matrix);
+	}
+
+	// XXX PixelMatrix not supports 0 dimension
+	private PixelChar deployEmpty(PixelsMatrix matrix) {
+		// guard
+		return matrix;
+	}
+
 	private static void printFontMetrics(FontMetrics fontMetrics) {
 		System.out.println("FontMetrics:");
 		System.out.println("Ascent: " + fontMetrics.getAscent());

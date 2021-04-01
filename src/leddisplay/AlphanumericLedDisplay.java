@@ -16,8 +16,8 @@ import javafx.scene.control.SkinBase;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import leddisplay.font.HorizontalDeployment;
 import leddisplay.font.PixelChar;
-import leddisplay.font.PixelFont;
 import leddisplay.font.PixelFontProvider;
 
 public class AlphanumericLedDisplay extends Control {
@@ -32,8 +32,9 @@ public class AlphanumericLedDisplay extends Control {
 	public static final Color DEFAULT_PIXEL_ON_COLOR = Color.rgb(21, 57, 31);
 	public static final Color DEFAULT_PIXEL_OFF_COLOR = Color.rgb(92, 114, 98);
 	public static final Color DEFAULT_BACKLIGHT_COLOR = Color.rgb(87, 164, 72);
+	public static final HorizontalDeployment DEFAULT_HORIZONTAL_DEPLOYMENT = HorizontalDeployment.CENTER;
 
-	private PixelFont pixelFont;
+	private PixelFontProvider fontProvider;
 	private Pane pane;
 	private AlphanumericChar[][] alphanumerics;
 
@@ -69,7 +70,7 @@ public class AlphanumericLedDisplay extends Control {
 				printer.initChanges();
 				printer.setText(newValue);
 				printer.consumeChanges((posX, posY, c) -> {
-					PixelChar pixelMatrix = pixelFont.getChar(c);
+					PixelChar pixelMatrix = fontProvider.getChar(c);
 					alphanumerics[posX][posY].setPixelMatrix(pixelMatrix);
 				});
 			}
@@ -77,6 +78,7 @@ public class AlphanumericLedDisplay extends Control {
 		pixelOnColor.addListener((observable, oldValue, newValue) -> updateColors());
 		pixelOffColor.addListener((observable, oldValue, newValue) -> updateColors());
 		backlightColor.addListener((observable, oldValue, newValue) -> updateColors());
+		horizontalDeployment.addListener((observable, newValue, oldValue) -> refresh());
 	}
 
 	private final IntegerProperty lineCount = new SimpleIntegerProperty(this, "lineCount", DEFAULT_LINE_COUNT);
@@ -94,7 +96,8 @@ public class AlphanumericLedDisplay extends Control {
 	private final ObjectProperty<Color> pixelOffColor = new SimpleObjectProperty<>(this, "pixelOffColor", DEFAULT_PIXEL_OFF_COLOR);
 	private final ObjectProperty<Color> backlightColor = new SimpleObjectProperty<>(this, "backlightColor", DEFAULT_BACKLIGHT_COLOR);
 	private final ObjectProperty<Font> font = new SimpleObjectProperty<>(this, "font", Font.getDefault());
-
+	private final ObjectProperty<HorizontalDeployment> horizontalDeployment = new SimpleObjectProperty<>(this, "horizontalDeployment", DEFAULT_HORIZONTAL_DEPLOYMENT);
+	
 	// public void print(String text) {
 	//
 	// }
@@ -110,7 +113,7 @@ public class AlphanumericLedDisplay extends Control {
 		int charIndex = 0;
 		for (; posX < lastPos; posX++) {
 			char c = text.charAt(charIndex);
-			PixelChar pixelMatrix = pixelFont.getChar(c);
+			PixelChar pixelMatrix = fontProvider.getChar(c);
 			alphanumerics[posX][posY].setPixelMatrix(pixelMatrix);
 			charIndex++;
 		}
@@ -125,7 +128,8 @@ public class AlphanumericLedDisplay extends Control {
 	}
 	
 	private void updatePixelFont() {
-		pixelFont = new PixelFontProvider(getFont(), (int)getPixelCountX(), (int)getPixelCountY());
+		fontProvider = new PixelFontProvider(getFont(), (int)getPixelCountX(), (int)getPixelCountY());
+		fontProvider.setHorizontalDeployment(getHorizontalDeployment());
 	}
 
 	@Override
@@ -173,7 +177,7 @@ public class AlphanumericLedDisplay extends Control {
 		CharPrinter printer = new CharPrinter(getLineCount(), getCharCount());
 		printer.setText(getText());
 		printer.consumeChanges((posX, posY, c) -> {
-			PixelChar pixelMatrix = pixelFont.getChar(c);
+			PixelChar pixelMatrix = fontProvider.getChar(c);
 			alphanumerics[posX][posY].setPixelMatrix(pixelMatrix);
 		});
 	}
@@ -367,4 +371,16 @@ public class AlphanumericLedDisplay extends Control {
 		this.fontProperty().set(font);
 	}
 
+	public final ObjectProperty<HorizontalDeployment> horizontalDeploymentProperty() {
+		return this.horizontalDeployment;
+	}
+	
+	public final HorizontalDeployment getHorizontalDeployment() {
+		return this.horizontalDeploymentProperty().get();
+	}
+
+	public final void setHorizontalDeployment(final HorizontalDeployment horizontalDeployment) {
+		this.horizontalDeploymentProperty().set(horizontalDeployment);
+	}
+	
 }

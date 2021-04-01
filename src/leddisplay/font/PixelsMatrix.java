@@ -5,6 +5,13 @@ import java.util.ArrayList;
 class PixelsMatrix implements PixelChar {
 	private ArrayList<ArrayList<Integer>> matrix;
 
+	public PixelsMatrix(PixelsMatrix other) {
+		matrix = new ArrayList<>();
+		for (ArrayList<Integer> row : other.matrix) {
+			matrix.add(new ArrayList<>(row));
+		}
+	}
+	
 	public PixelsMatrix(int[][] matrix) {
 		if (matrix == null) {
 			throw new NullPointerException();

@@ -37,6 +37,11 @@ public class PixelsMatrixTest {
 		return System.lineSeparator();
 	}
 	
+	public void shouldInitEqualsCopyOfObjectInCloneConstructor() {
+		PixelsMatrix copy = new PixelsMatrix(matrix);
+		assertEquals(matrix.toString(), copy.toString());
+	}
+	
 	@Test
 	public void shouldReturnArrayEqualsConstructorArgs() {
 		Random rand = new Random();

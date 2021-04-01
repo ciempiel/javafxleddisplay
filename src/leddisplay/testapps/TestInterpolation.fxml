@@ -123,6 +123,8 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
+                        <Label text="Rozmieszczenie poziome:" GridPane.rowIndex="19" />
+                        <ComboBox fx:id="horizontalDeploymentCombo" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="19" />
                      </children>
                   </GridPane>
                </children>
