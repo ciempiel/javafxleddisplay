@@ -26,6 +26,7 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import leddisplay.AlphanumericLedDisplay;
 import leddisplay.font.HorizontalDeployment;
+import leddisplay.font.VerticalDeployment;
 
 public class TestInterpolationController {
 	@FXML
@@ -43,6 +44,8 @@ public class TestInterpolationController {
 	private ComboBox<String> fontFamilyCombo, fontStyleCombo;
 	@FXML
 	private ComboBox<HorizontalDeployment> horizontalDeploymentCombo;
+	@FXML
+	private ComboBox<VerticalDeployment> verticalDeploymentCombo;
 
 	private AlphanumericLedDisplay display;
 
@@ -75,6 +78,7 @@ public class TestInterpolationController {
 		display.backlightColorProperty().bind(backlightColorPicker.valueProperty());
 		initFontControl();
 		initHorizontalDeploymentCombo();
+		initVerticalDeploymentCombo();
 		//
 		displayPane.getChildren().add(display);
 	}
@@ -145,6 +149,12 @@ public class TestInterpolationController {
 		horizontalDeploymentCombo.getItems().addAll(HorizontalDeployment.values());
 		horizontalDeploymentCombo.getSelectionModel().select(AlphanumericLedDisplay.DEFAULT_HORIZONTAL_DEPLOYMENT);
 		display.horizontalDeploymentProperty().bind(horizontalDeploymentCombo.getSelectionModel().selectedItemProperty());
+	}
+	
+	private void initVerticalDeploymentCombo() {
+		verticalDeploymentCombo.getItems().addAll(VerticalDeployment.values());
+		verticalDeploymentCombo.getSelectionModel().select(AlphanumericLedDisplay.DEFAULT_VERTICAL_DEPLOYMENT);
+		display.verticalDeploymentProperty().bind(verticalDeploymentCombo.getSelectionModel().selectedItemProperty());
 	}
 	
 	public void setStage(Stage primaryStage) {

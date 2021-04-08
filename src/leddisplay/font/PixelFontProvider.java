@@ -20,6 +20,7 @@ public class PixelFontProvider implements PixelFont {
 	private final Dimension targetDimension;
 	
 	private HorizontalDeployment horizontalDeployment = HorizontalDeployment.CENTER;
+	private VerticalDeployment verticalDeployment = VerticalDeployment.BOTTOM_FONT_DESCENT;
 
 	private HashMap<Character, PixelChar> buffered = new HashMap<>();
 
@@ -63,6 +64,14 @@ public class PixelFontProvider implements PixelFont {
 		this.horizontalDeployment = horizontalDeployment;
 	}
 
+	public VerticalDeployment getVerticalDeployment() {
+		return verticalDeployment;
+	}
+
+	public void setVerticalDeployment(VerticalDeployment verticalDeployment) {
+		this.verticalDeployment = verticalDeployment;
+	}
+
 	private PixelChar renderMatrix(char c) {
 		String text = Character.toString(c);
 		BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
@@ -93,7 +102,7 @@ public class PixelFontProvider implements PixelFont {
 		
 		PixelsMatrix matrix = new PixelsMatrix(pixels, height);
 		
-		PixelChar deployed = deploy(matrix);
+		PixelChar deployed = deploy(matrix, fm);
 		
 //		PixelChar result = new IndexOutOfBoundsGuardPixelChar(new PixelCharDeployer(pixels, height, fm, targetDimension));
 		printPixelChar(deployed);
@@ -101,17 +110,19 @@ public class PixelFontProvider implements PixelFont {
 		return new IndexOutOfBoundsGuardPixelChar(deployed);
 	}
 
-	private PixelChar deploy(PixelsMatrix matrix) {
+	private PixelChar deploy(PixelsMatrix matrix, FontMetrics fm) {
 		if (matrix.getEmptyColumnsCountLeft() != matrix.getWidth()) {
-			return deployDefault(matrix);
+			return deployNotEmpty(matrix, fm);
 		} else {
 			return deployEmpty(matrix);
 		}
 	}
 
-	private PixelChar deployDefault(PixelsMatrix matrix) {
+	private PixelChar deployNotEmpty(PixelsMatrix matrix, FontMetrics fm) {
 		HorizontalDeployer horizontalDeployer = new HorizontalDeployer(horizontalDeployment, targetDimension);
-		return horizontalDeployer.deploy(matrix);
+		matrix = horizontalDeployer.deploy(matrix);
+		VerticalDeployer verticalDeployer = new VerticalDeployer(verticalDeployment, fm, targetDimension);
+		return verticalDeployer.deploy(matrix);
 	}
 
 	// XXX PixelMatrix not supports 0 dimension

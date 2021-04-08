@@ -19,6 +19,7 @@ import javafx.scene.text.Font;
 import leddisplay.font.HorizontalDeployment;
 import leddisplay.font.PixelChar;
 import leddisplay.font.PixelFontProvider;
+import leddisplay.font.VerticalDeployment;
 
 public class AlphanumericLedDisplay extends Control {
 	public static final int DEFAULT_LINE_COUNT = 2;
@@ -33,7 +34,8 @@ public class AlphanumericLedDisplay extends Control {
 	public static final Color DEFAULT_PIXEL_OFF_COLOR = Color.rgb(92, 114, 98);
 	public static final Color DEFAULT_BACKLIGHT_COLOR = Color.rgb(87, 164, 72);
 	public static final HorizontalDeployment DEFAULT_HORIZONTAL_DEPLOYMENT = HorizontalDeployment.CENTER;
-
+	public static final VerticalDeployment DEFAULT_VERTICAL_DEPLOYMENT = VerticalDeployment.BOTTOM_FONT_DESCENT;
+	
 	private PixelFontProvider fontProvider;
 	private Pane pane;
 	private AlphanumericChar[][] alphanumerics;
@@ -79,6 +81,7 @@ public class AlphanumericLedDisplay extends Control {
 		pixelOffColor.addListener((observable, oldValue, newValue) -> updateColors());
 		backlightColor.addListener((observable, oldValue, newValue) -> updateColors());
 		horizontalDeployment.addListener((observable, newValue, oldValue) -> refresh());
+		verticalDeployment.addListener((observable, newValue, oldValue) -> refresh());
 	}
 
 	private final IntegerProperty lineCount = new SimpleIntegerProperty(this, "lineCount", DEFAULT_LINE_COUNT);
@@ -97,6 +100,7 @@ public class AlphanumericLedDisplay extends Control {
 	private final ObjectProperty<Color> backlightColor = new SimpleObjectProperty<>(this, "backlightColor", DEFAULT_BACKLIGHT_COLOR);
 	private final ObjectProperty<Font> font = new SimpleObjectProperty<>(this, "font", Font.getDefault());
 	private final ObjectProperty<HorizontalDeployment> horizontalDeployment = new SimpleObjectProperty<>(this, "horizontalDeployment", DEFAULT_HORIZONTAL_DEPLOYMENT);
+	private final ObjectProperty<VerticalDeployment> verticalDeployment = new SimpleObjectProperty<>(this, "verticalDeployment", DEFAULT_VERTICAL_DEPLOYMENT);
 	
 	// public void print(String text) {
 	//
@@ -130,6 +134,7 @@ public class AlphanumericLedDisplay extends Control {
 	private void updatePixelFont() {
 		fontProvider = new PixelFontProvider(getFont(), (int)getPixelCountX(), (int)getPixelCountY());
 		fontProvider.setHorizontalDeployment(getHorizontalDeployment());
+		fontProvider.setVerticalDeployment(getVerticalDeployment());
 	}
 
 	@Override
@@ -381,6 +386,18 @@ public class AlphanumericLedDisplay extends Control {
 
 	public final void setHorizontalDeployment(final HorizontalDeployment horizontalDeployment) {
 		this.horizontalDeploymentProperty().set(horizontalDeployment);
+	}
+
+	public final ObjectProperty<VerticalDeployment> verticalDeploymentProperty() {
+		return this.verticalDeployment;
+	}
+
+	public final VerticalDeployment getVerticalDeployment() {
+		return this.verticalDeploymentProperty().get();
+	}
+	
+	public final void setVerticalDeployment(final VerticalDeployment verticalDeployment) {
+		this.verticalDeploymentProperty().set(verticalDeployment);
 	}
 	
 }
