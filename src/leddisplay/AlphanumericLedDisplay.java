@@ -18,7 +18,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import leddisplay.font.HorizontalDeployment;
 import leddisplay.font.PixelChar;
-import leddisplay.font.PixelFontProvider;
+import leddisplay.font.PixelCharDeployer;
+import leddisplay.font.PixelRenderer;
 import leddisplay.font.VerticalDeployment;
 
 public class AlphanumericLedDisplay extends Control {
@@ -36,7 +37,9 @@ public class AlphanumericLedDisplay extends Control {
 	public static final HorizontalDeployment DEFAULT_HORIZONTAL_DEPLOYMENT = HorizontalDeployment.CENTER;
 	public static final VerticalDeployment DEFAULT_VERTICAL_DEPLOYMENT = VerticalDeployment.BOTTOM_FONT_DESCENT;
 	
-	private PixelFontProvider fontProvider;
+	private PixelRenderer renderer;
+	private PixelCharDeployer deployer;
+	
 	private Pane pane;
 	private AlphanumericChar[][] alphanumerics;
 
@@ -60,10 +63,7 @@ public class AlphanumericLedDisplay extends Control {
 		pixelGapY.addListener((observable, newValue, oldValue) -> refresh());
 		charGapX.addListener((observable, newValue, oldValue) -> refresh());
 		charGapY.addListener((observable, newValue, oldValue) -> refresh());
-		this.font.addListener((observable, newValue, oldValue) -> {
-			updatePixelFont();
-			refreshAllText();
-		});
+		this.font.addListener((observable, newValue, oldValue) -> refresh());
 
 		text.addListener((observable, oldValue, newValue) -> {
 			if (text.isBound()) {
@@ -72,7 +72,7 @@ public class AlphanumericLedDisplay extends Control {
 				printer.initChanges();
 				printer.setText(newValue);
 				printer.consumeChanges((posX, posY, c) -> {
-					PixelChar pixelMatrix = fontProvider.getChar(c);
+					PixelChar pixelMatrix = getChar(c);
 					alphanumerics[posX][posY].setPixelMatrix(pixelMatrix);
 				});
 			}
@@ -117,7 +117,7 @@ public class AlphanumericLedDisplay extends Control {
 		int charIndex = 0;
 		for (; posX < lastPos; posX++) {
 			char c = text.charAt(charIndex);
-			PixelChar pixelMatrix = fontProvider.getChar(c);
+			PixelChar pixelMatrix = getChar(c);
 			alphanumerics[posX][posY].setPixelMatrix(pixelMatrix);
 			charIndex++;
 		}
@@ -132,9 +132,15 @@ public class AlphanumericLedDisplay extends Control {
 	}
 	
 	private void updatePixelFont() {
-		fontProvider = new PixelFontProvider(getFont(), (int)getPixelCountX(), (int)getPixelCountY());
-		fontProvider.setHorizontalDeployment(getHorizontalDeployment());
-		fontProvider.setVerticalDeployment(getVerticalDeployment());
+		renderer = new PixelRenderer(getFont());
+		
+		deployer = new PixelCharDeployer(renderer.getMetrics(), (int)getPixelCountX(), (int)getPixelCountY());
+		deployer.setHorizontalDeployment(getHorizontalDeployment());
+		deployer.setVerticalDeployment(getVerticalDeployment());
+	}
+	
+	private PixelChar getChar(char c) {
+		return deployer.deploy(renderer.getChar(c));
 	}
 
 	@Override
@@ -182,7 +188,7 @@ public class AlphanumericLedDisplay extends Control {
 		CharPrinter printer = new CharPrinter(getLineCount(), getCharCount());
 		printer.setText(getText());
 		printer.consumeChanges((posX, posY, c) -> {
-			PixelChar pixelMatrix = fontProvider.getChar(c);
+			PixelChar pixelMatrix = getChar(c);
 			alphanumerics[posX][posY].setPixelMatrix(pixelMatrix);
 		});
 	}

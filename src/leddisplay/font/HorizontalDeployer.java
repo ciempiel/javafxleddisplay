@@ -2,7 +2,7 @@ package leddisplay.font;
 
 import java.awt.Dimension;
 
-class HorizontalDeployer {
+public class HorizontalDeployer {
 	private final HorizontalDeployment horizontalDeployment;
 	private final Dimension targetDimension;
 	private PixelsMatrix matrix;
@@ -50,15 +50,13 @@ class HorizontalDeployer {
 
 	private void deployLeft() {
 		if (targetDimension.width > matrix.getWidth()) {
-			int columnsToAdd = targetDimension.width - matrix.getWidth();
-			matrix.addEmptyColumnsRight(columnsToAdd);
+			matrix.addEmptyColumnsRight(targetDimension.width - matrix.getWidth());
 		}
 	}
 
 	private void deployRight() {
 		if (targetDimension.width > matrix.getWidth()) {
-			int columnsToAdd = targetDimension.width - matrix.getWidth();
-			matrix.addEmptyColumnsLeft(columnsToAdd);
+			matrix.addEmptyColumnsLeft(targetDimension.width - matrix.getWidth());
 		}
 	}
 

@@ -51,4 +51,9 @@ public class Test5x7PixelFontABC implements PixelFont {
 		return new EmptyPixelChar();
 	}
 
+	@Override
+	public PixelFontMetrics getMetrics() {
+		return new PixelFontMetrics(7, 7, 0, 0);
+	}
+
 }

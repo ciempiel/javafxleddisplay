@@ -1,15 +1,14 @@
 package leddisplay.font;
 
 import java.awt.Dimension;
-import java.awt.FontMetrics;
 
 class VerticalDeployer {
 	private final VerticalDeployment verticalDeployment;
-	private final FontMetrics fontMetrics;
+	private final PixelFontMetrics fontMetrics;
 	private final Dimension targetDimension;
 	private PixelsMatrix matrix;
 
-	public VerticalDeployer(VerticalDeployment verticalDeployment, FontMetrics fontMetrics, Dimension targetDimension) {
+	public VerticalDeployer(VerticalDeployment verticalDeployment, PixelFontMetrics fontMetrics, Dimension targetDimension) {
 		super();
 		this.verticalDeployment = verticalDeployment;
 		this.fontMetrics = fontMetrics;
@@ -53,9 +52,12 @@ class VerticalDeployer {
 	}
 
 	private void deployBottomCalcDescent() {
-		// TODO Auto-generated method stub
-		
-		deployBottomFontDescent();
+		if (fontMetrics.getHeight() > (fontMetrics.getAscent() + fontMetrics.getCalcDescent())) {
+			int gap = fontMetrics.getHeight() - (fontMetrics.getAscent() + fontMetrics.getCalcDescent());
+			matrix.removeRowsBottom(gap);
+		}
+		removeExceedingRowsTop();
+		completRowsTop();
 	}
 
 	private void deployCenter() {

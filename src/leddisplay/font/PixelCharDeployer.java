@@ -1,63 +1,77 @@
 package leddisplay.font;
 
 import java.awt.Dimension;
-import java.awt.FontMetrics;
 
-class PixelCharDeployer implements PixelChar {
-	private final PixelsMatrix matrix;
-	private final FontMetrics fontMetrics;
-	private final Dimension targetDimension;
+public class PixelCharDeployer {
+	private final PixelFontMetrics metrics;
+	private int targetWidth, targetHeight;
 	
-	public PixelCharDeployer(int[] pixels, int height, FontMetrics fontMetrics, Dimension targetDimension) {
+	private HorizontalDeployment horizontalDeployment = HorizontalDeployment.CENTER;
+	private VerticalDeployment verticalDeployment = VerticalDeployment.BOTTOM_FONT_DESCENT;
+	
+	public PixelCharDeployer(PixelFontMetrics metrics, int targetWidth, int targetHeight) {
 		super();
-		this.fontMetrics = fontMetrics;
-		this.targetDimension = targetDimension;
-		matrix = new PixelsMatrix(pixels, height);
-		deploy();
+		this.metrics = metrics;
+		this.targetWidth = targetWidth;
+		this.targetHeight = targetHeight;
 	}
 
-	private void deploy() {
-		deployVertically();
-		deployHorizontally();
+	public PixelChar deploy(PixelsMatrix matrix) {
+		PixelChar deployed = deployPrivate(matrix);
+		return new IndexOutOfBoundsGuardPixelChar(deployed);
 	}
-	
-	private void deployVertically() {
-		if (fontMetrics.getHeight() > (fontMetrics.getAscent() + fontMetrics.getDescent())) {
-			int gap = fontMetrics.getHeight() - (fontMetrics.getAscent() + fontMetrics.getDescent());
-			matrix.removeRowsBottom(gap);
-		}
-		if (targetDimension.height < matrix.getHeigth()) {
-			int rowsToRemove = matrix.getHeigth() - targetDimension.height;
-			matrix.removeRowsTop(rowsToRemove);
-		} else if (targetDimension.height > matrix.getHeigth()) {
-			int rowsToAdd = targetDimension.height - matrix.getHeigth();
-			matrix.addEmptyRowsTop(rowsToAdd);
+
+	private PixelChar deployPrivate(PixelsMatrix matrix) {
+		if (matrix.getEmptyColumnsCountLeft() != matrix.getWidth()) {
+			return deployNotEmpty(matrix);
+		} else {
+			return deployEmpty(matrix);
 		}
 	}
 	
-	private void deployHorizontally() {
-		if (targetDimension.width > matrix.getWidth()) {
-			int columnsToAdd = targetDimension.width - matrix.getWidth();
-			int columnsToAddLeft = columnsToAdd / 2;
-			matrix.addEmptyColumnsLeft(columnsToAddLeft);
-			int columnsToAddRight = columnsToAdd - columnsToAddLeft;
-			matrix.addEmptyColumnsRight(columnsToAddRight);
-		}
+	private PixelChar deployNotEmpty(PixelsMatrix matrix) {
+		HorizontalDeployer horizontalDeployer = new HorizontalDeployer(horizontalDeployment, new Dimension(targetWidth, targetHeight));
+		matrix = horizontalDeployer.deploy(matrix);
+		VerticalDeployer verticalDeployer = new VerticalDeployer(verticalDeployment, metrics, new Dimension(targetWidth, targetHeight));
+		return verticalDeployer.deploy(matrix);
 	}
 	
-	@Override
-	public boolean isPixelSet(int x, int y) {
-		return matrix.isPixelSet(x, y);
+	// PixelMatrix not supports 0 dimension
+	private PixelChar deployEmpty(PixelsMatrix matrix) {
+		// guard
+		return matrix;
 	}
 
-	@Override
-	public int getWidth() {
-		return matrix.getWidth();
+	public HorizontalDeployment getHorizontalDeployment() {
+		return horizontalDeployment;
 	}
 
-	@Override
-	public int getHeigth() {
-		return matrix.getHeigth();
+	public void setHorizontalDeployment(HorizontalDeployment horizontalDeployment) {
+		this.horizontalDeployment = horizontalDeployment;
+	}
+
+	public VerticalDeployment getVerticalDeployment() {
+		return verticalDeployment;
+	}
+
+	public void setVerticalDeployment(VerticalDeployment verticalDeployment) {
+		this.verticalDeployment = verticalDeployment;
+	}
+
+	public int getTargetWidth() {
+		return targetWidth;
+	}
+
+	public void setTargetWidth(int targetWidth) {
+		this.targetWidth = targetWidth;
+	}
+
+	public int getTargetHeight() {
+		return targetHeight;
+	}
+
+	public void setTargetHeight(int targetHeight) {
+		this.targetHeight = targetHeight;
 	}
 	
 }
