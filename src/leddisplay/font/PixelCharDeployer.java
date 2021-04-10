@@ -2,11 +2,9 @@ package leddisplay.font;
 
 public class PixelCharDeployer {
 	private final PixelFontMetrics metrics;
-	private int targetWidth, targetHeight;
-	
+	private int targetWidth, targetHeight, horizontalShift, verticalShift;
 	private HorizontalDeployment horizontalDeployment = HorizontalDeployment.CENTER;
 	private VerticalDeployment verticalDeployment = VerticalDeployment.BOTTOM_FONT_DESCENT;
-	private int horizontalShift;
 	
 	public PixelCharDeployer(PixelFontMetrics metrics, int targetWidth, int targetHeight) {
 		super();
@@ -32,7 +30,7 @@ public class PixelCharDeployer {
 	private PixelChar deployNotEmpty(PixelsMatrix matrix) {
 		HorizontalDeployer horizontalDeployer = new HorizontalDeployer(horizontalDeployment, targetWidth, horizontalShift);
 		matrix = horizontalDeployer.deploy(matrix);
-		VerticalDeployer verticalDeployer = new VerticalDeployer(verticalDeployment, metrics, targetHeight);
+		VerticalDeployer verticalDeployer = new VerticalDeployer(verticalDeployment, metrics, targetHeight, verticalShift);
 		return verticalDeployer.deploy(matrix);
 	}
 	
@@ -80,6 +78,14 @@ public class PixelCharDeployer {
 
 	public void setHorizontalShift(int horizontalShift) {
 		this.horizontalShift = horizontalShift;
+	}
+
+	public int getVerticalShift() {
+		return verticalShift;
+	}
+
+	public void setVerticalShift(int verticalShift) {
+		this.verticalShift = verticalShift;
 	}
 	
 }

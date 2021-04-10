@@ -3,14 +3,15 @@ package leddisplay.font;
 class VerticalDeployer {
 	private final VerticalDeployment verticalDeployment;
 	private final PixelFontMetrics fontMetrics;
-	private final int targetHeight;
+	private final int targetHeight, shift;
 	private PixelsMatrix matrix;
 
-	public VerticalDeployer(VerticalDeployment verticalDeployment, PixelFontMetrics fontMetrics, int targetHeight) {
+	public VerticalDeployer(VerticalDeployment verticalDeployment, PixelFontMetrics fontMetrics, int targetHeight, int shift) {
 		super();
 		this.verticalDeployment = verticalDeployment;
 		this.fontMetrics = fontMetrics;
 		this.targetHeight = targetHeight;
+		this.shift = shift;
 	}
 
 	public PixelsMatrix deploy(PixelsMatrix matrix) {
@@ -41,21 +42,27 @@ class VerticalDeployer {
 	}
 
 	private void deployBottomFontDescent() {
+		int toRemoveBottom = 0;
 		if (fontMetrics.getHeight() > (fontMetrics.getAscent() + fontMetrics.getDescent())) {
-			int gap = fontMetrics.getHeight() - (fontMetrics.getAscent() + fontMetrics.getDescent());
-			matrix.removeRowsBottom(gap);
+			toRemoveBottom = fontMetrics.getHeight() - (fontMetrics.getAscent() + fontMetrics.getDescent());
 		}
-		removeExceedingRowsTop();
 		completRowsTop();
+		matrix.addEmptyRowsTop(toRemoveBottom);
+		applyShift();
+		matrix.removeRowsBottom(toRemoveBottom);
+		removeExceedingRowsTop();
 	}
-
+	
 	private void deployBottomCalcDescent() {
+		int  toRemoveBottom = 0;
 		if (fontMetrics.getHeight() > (fontMetrics.getAscent() + fontMetrics.getCalcDescent())) {
-			int gap = fontMetrics.getHeight() - (fontMetrics.getAscent() + fontMetrics.getCalcDescent());
-			matrix.removeRowsBottom(gap);
+			toRemoveBottom = fontMetrics.getHeight() - (fontMetrics.getAscent() + fontMetrics.getCalcDescent());
 		}
-		removeExceedingRowsTop();
 		completRowsTop();
+		matrix.addEmptyRowsTop(toRemoveBottom);
+		applyShift();
+		matrix.removeRowsBottom(toRemoveBottom);
+		removeExceedingRowsTop();
 	}
 
 	private void deployCenter() {
@@ -67,18 +74,21 @@ class VerticalDeployer {
 			int rowsToAddBottom = rowsToAdd - rowsToAddTop;
 			matrix.addEmptyRowsBottom(rowsToAddBottom);
 		}
+		applyShift();
 		removeExceedingRowsTop();
 	}
 
 	private void deployTop() {
 		removeEmptyExternalRows();
 		completRowsBottom();
+		applyShift();
 		removeExceedingRowsBottom();
 	}
 
 	private void deployBottom() {
 		removeEmptyExternalRows();
 		completRowsTop();
+		applyShift();
 		removeExceedingRowsTop();
 	}
 
@@ -108,6 +118,16 @@ class VerticalDeployer {
 	private void removeExceedingRowsBottom() {
 		if (matrix.getHeigth() > targetHeight) {
 			matrix.removeRowsBottom(matrix.getHeigth() - targetHeight);
+		}
+	}
+	
+	private void applyShift() {
+		if (shift > 0) {
+			matrix.addEmptyRowsTop(shift);
+			matrix.removeRowsBottom(shift);
+		} else if (shift < 0) {
+			matrix.removeRowsTop(-shift);
+			matrix.addEmptyRowsBottom(-shift);
 		}
 	}
 

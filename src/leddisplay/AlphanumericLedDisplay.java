@@ -83,6 +83,7 @@ public class AlphanumericLedDisplay extends Control {
 		horizontalDeployment.addListener((observable, newValue, oldValue) -> refresh());
 		verticalDeployment.addListener((observable, newValue, oldValue) -> refresh());
 		horizontalShift.addListener((observable, newValue, oldValue) -> refresh());
+		verticalShift.addListener((observable, newValue, oldValue) -> refresh());
 	}
 
 	private final IntegerProperty lineCount = new SimpleIntegerProperty(this, "lineCount", DEFAULT_LINE_COUNT);
@@ -103,6 +104,7 @@ public class AlphanumericLedDisplay extends Control {
 	private final ObjectProperty<HorizontalDeployment> horizontalDeployment = new SimpleObjectProperty<>(this, "horizontalDeployment", DEFAULT_HORIZONTAL_DEPLOYMENT);
 	private final ObjectProperty<VerticalDeployment> verticalDeployment = new SimpleObjectProperty<>(this, "verticalDeployment", DEFAULT_VERTICAL_DEPLOYMENT);
 	private final DoubleProperty horizontalShift = new SimpleDoubleProperty(this, "horizontalShift", 0.0);
+	private final DoubleProperty verticalShift = new SimpleDoubleProperty(this, "verticalShift", 0.0);
 	
 	// public void print(String text) {
 	//
@@ -140,6 +142,7 @@ public class AlphanumericLedDisplay extends Control {
 		deployer.setHorizontalDeployment(getHorizontalDeployment());
 		deployer.setHorizontalShift((int)getHorizontalShift());
 		deployer.setVerticalDeployment(getVerticalDeployment());
+		deployer.setVerticalShift((int)getVerticalShift());
 	}
 	
 	private PixelChar getChar(char c) {
@@ -419,6 +422,18 @@ public class AlphanumericLedDisplay extends Control {
 
 	public final void setHorizontalShift(final double horizontalShift) {
 		this.horizontalShiftProperty().set(horizontalShift);
+	}
+
+	public final DoubleProperty verticalShiftProperty() {
+		return this.verticalShift;
+	}
+	
+	public final double getVerticalShift() {
+		return this.verticalShiftProperty().get();
+	}
+	
+	public final void setVerticalShift(final double verticalShift) {
+		this.verticalShiftProperty().set(verticalShift);
 	}
 	
 }
