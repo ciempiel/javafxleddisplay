@@ -70,7 +70,7 @@ public class PixelRenderer implements PixelFont {
 	}
 	
 	@Override
-	public PixelsMatrix getChar(char c) {
+	public PixelChar getChar(char c) {
 		return renderText(Character.toString(c));
 	}
 	

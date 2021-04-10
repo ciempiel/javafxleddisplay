@@ -5,6 +5,17 @@ import java.util.ArrayList;
 class PixelsMatrix implements PixelChar {
 	private ArrayList<ArrayList<Integer>> matrix;
 
+	public PixelsMatrix(PixelChar pixelChar) {
+		matrix = new ArrayList<>();
+		for (int y=0; y<pixelChar.getHeigth(); y++) {
+			ArrayList<Integer> row = new ArrayList<>(pixelChar.getWidth());
+			for (int x=0; x<pixelChar.getWidth(); x++) {
+				row.add(pixelChar.getPixelValue(x, y));
+			}
+			matrix.add(row);
+		}
+	}
+	
 	public PixelsMatrix(PixelsMatrix other) {
 		matrix = new ArrayList<>();
 		for (ArrayList<Integer> row : other.matrix) {
@@ -50,8 +61,8 @@ class PixelsMatrix implements PixelChar {
 	}
 
 	@Override
-	public boolean isPixelSet(int x, int y) {
-		return matrix.get(y).get(x) != 0;
+	public int getPixelValue(int x, int y) {
+		return matrix.get(y).get(x);
 	}
 
 	@Override

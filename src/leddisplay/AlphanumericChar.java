@@ -34,7 +34,7 @@ class AlphanumericChar extends Control {
 		}
 		for (int i = 0; i < display.getPixelCountX(); i++) {
 			for (int j = 0; j < display.getPixelCountY(); j++) {
-				Color color = pixelMatrix.isPixelSet(i, j) ? display.getPixelOnColor() : display.getPixelOffColor();
+				Color color = pixelMatrix.getPixelValue(i, j) != 0 ? display.getPixelOnColor() : display.getPixelOffColor();
 				pixels[i][j].setFill(color);
 			}
 		}

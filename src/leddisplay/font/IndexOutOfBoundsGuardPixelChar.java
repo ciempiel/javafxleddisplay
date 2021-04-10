@@ -9,11 +9,11 @@ class IndexOutOfBoundsGuardPixelChar implements PixelChar {
 	}
 
 	@Override
-	public boolean isPixelSet(int x, int y) {
+	public int getPixelValue(int x, int y) {
 		if (x >= delegate.getWidth() || y >= delegate.getHeigth() || x < 0 || y < 0) {
-			return false;
+			return 0;
 		}
-		return delegate.isPixelSet(x, y);
+		return delegate.getPixelValue(x, y);
 	}
 
 	@Override

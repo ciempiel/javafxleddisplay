@@ -16,7 +16,8 @@ public class PixelCharDeployer {
 		this.targetHeight = targetHeight;
 	}
 
-	public PixelChar deploy(PixelsMatrix matrix) {
+	public PixelChar deploy(PixelChar pixelChar) {
+		PixelsMatrix matrix = new PixelsMatrix(pixelChar);
 		PixelChar deployed = deployPrivate(matrix);
 		return new IndexOutOfBoundsGuardPixelChar(deployed);
 	}

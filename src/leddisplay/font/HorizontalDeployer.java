@@ -2,7 +2,7 @@ package leddisplay.font;
 
 import java.awt.Dimension;
 
-public class HorizontalDeployer {
+class HorizontalDeployer {
 	private final HorizontalDeployment horizontalDeployment;
 	private final Dimension targetDimension;
 	private PixelsMatrix matrix;
