@@ -6,6 +6,7 @@ public class PixelCharDeployer {
 	
 	private HorizontalDeployment horizontalDeployment = HorizontalDeployment.CENTER;
 	private VerticalDeployment verticalDeployment = VerticalDeployment.BOTTOM_FONT_DESCENT;
+	private int horizontalShift;
 	
 	public PixelCharDeployer(PixelFontMetrics metrics, int targetWidth, int targetHeight) {
 		super();
@@ -29,7 +30,7 @@ public class PixelCharDeployer {
 	}
 	
 	private PixelChar deployNotEmpty(PixelsMatrix matrix) {
-		HorizontalDeployer horizontalDeployer = new HorizontalDeployer(horizontalDeployment, targetWidth);
+		HorizontalDeployer horizontalDeployer = new HorizontalDeployer(horizontalDeployment, targetWidth, horizontalShift);
 		matrix = horizontalDeployer.deploy(matrix);
 		VerticalDeployer verticalDeployer = new VerticalDeployer(verticalDeployment, metrics, targetHeight);
 		return verticalDeployer.deploy(matrix);
@@ -71,6 +72,14 @@ public class PixelCharDeployer {
 
 	public void setTargetHeight(int targetHeight) {
 		this.targetHeight = targetHeight;
+	}
+
+	public int getHorizontalShift() {
+		return horizontalShift;
+	}
+
+	public void setHorizontalShift(int horizontalShift) {
+		this.horizontalShift = horizontalShift;
 	}
 	
 }

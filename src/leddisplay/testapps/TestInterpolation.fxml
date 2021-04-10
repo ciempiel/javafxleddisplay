@@ -127,6 +127,8 @@
                         <ComboBox fx:id="horizontalDeploymentCombo" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="19" />
                         <Label text="Rozmieszczenie pionowe:" GridPane.rowIndex="20" />
                         <ComboBox fx:id="verticalDeploymentCombo" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="20" />
+                        <Label text="Przesunięcie poziome:" GridPane.rowIndex="21" />
+                        <Spinner fx:id="horizontalShiftSpinner" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="21" />
                      </children>
                   </GridPane>
                </children>

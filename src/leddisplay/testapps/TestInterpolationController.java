@@ -33,7 +33,7 @@ public class TestInterpolationController {
 	private Spinner<Integer> lineCountSpinner, charCountSpinner, pixelXCountSpinner, pixelYCountSpinner;
 	@FXML
 	private Spinner<Double> pixelWidthSpinner, pixelHeightSpinner, pixelGapXSpinner, pixelGapYSpinner, charGapXSpinner, charGapYSpinner, 
-		paddingTopSpinner, paddingRightSpinner, paddingBottomSpinner, paddingLeftSpinner, fontSizeSpinner;
+		paddingTopSpinner, paddingRightSpinner, paddingBottomSpinner, paddingLeftSpinner, fontSizeSpinner, horizontalShiftSpinner;
 	@FXML
 	private TextArea textArea;
 	@FXML
@@ -79,6 +79,7 @@ public class TestInterpolationController {
 		initFontControl();
 		initHorizontalDeploymentCombo();
 		initVerticalDeploymentCombo();
+		initDoubleSpinner(horizontalShiftSpinner, display.horizontalShiftProperty(), -10, 10, 0, 1);
 		//
 		displayPane.getChildren().add(display);
 	}

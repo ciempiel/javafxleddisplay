@@ -82,6 +82,7 @@ public class AlphanumericLedDisplay extends Control {
 		backlightColor.addListener((observable, oldValue, newValue) -> updateColors());
 		horizontalDeployment.addListener((observable, newValue, oldValue) -> refresh());
 		verticalDeployment.addListener((observable, newValue, oldValue) -> refresh());
+		horizontalShift.addListener((observable, newValue, oldValue) -> refresh());
 	}
 
 	private final IntegerProperty lineCount = new SimpleIntegerProperty(this, "lineCount", DEFAULT_LINE_COUNT);
@@ -101,6 +102,7 @@ public class AlphanumericLedDisplay extends Control {
 	private final ObjectProperty<Font> font = new SimpleObjectProperty<>(this, "font", Font.getDefault());
 	private final ObjectProperty<HorizontalDeployment> horizontalDeployment = new SimpleObjectProperty<>(this, "horizontalDeployment", DEFAULT_HORIZONTAL_DEPLOYMENT);
 	private final ObjectProperty<VerticalDeployment> verticalDeployment = new SimpleObjectProperty<>(this, "verticalDeployment", DEFAULT_VERTICAL_DEPLOYMENT);
+	private final DoubleProperty horizontalShift = new SimpleDoubleProperty(this, "horizontalShift", 0.0);
 	
 	// public void print(String text) {
 	//
@@ -136,6 +138,7 @@ public class AlphanumericLedDisplay extends Control {
 		
 		deployer = new PixelCharDeployer(renderer.getMetrics(), (int)getPixelCountX(), (int)getPixelCountY());
 		deployer.setHorizontalDeployment(getHorizontalDeployment());
+		deployer.setHorizontalShift((int)getHorizontalShift());
 		deployer.setVerticalDeployment(getVerticalDeployment());
 	}
 	
@@ -404,6 +407,18 @@ public class AlphanumericLedDisplay extends Control {
 	
 	public final void setVerticalDeployment(final VerticalDeployment verticalDeployment) {
 		this.verticalDeploymentProperty().set(verticalDeployment);
+	}
+
+	public final DoubleProperty horizontalShiftProperty() {
+		return this.horizontalShift;
+	}
+
+	public final double getHorizontalShift() {
+		return this.horizontalShiftProperty().get();
+	}
+
+	public final void setHorizontalShift(final double horizontalShift) {
+		this.horizontalShiftProperty().set(horizontalShift);
 	}
 	
 }
