@@ -1,18 +1,16 @@
 package leddisplay.font;
 
-import java.awt.Dimension;
-
 class VerticalDeployer {
 	private final VerticalDeployment verticalDeployment;
 	private final PixelFontMetrics fontMetrics;
-	private final Dimension targetDimension;
+	private final int targetHeight;
 	private PixelsMatrix matrix;
 
-	public VerticalDeployer(VerticalDeployment verticalDeployment, PixelFontMetrics fontMetrics, Dimension targetDimension) {
+	public VerticalDeployer(VerticalDeployment verticalDeployment, PixelFontMetrics fontMetrics, int targetHeight) {
 		super();
 		this.verticalDeployment = verticalDeployment;
 		this.fontMetrics = fontMetrics;
-		this.targetDimension = targetDimension;
+		this.targetHeight = targetHeight;
 	}
 
 	public PixelsMatrix deploy(PixelsMatrix matrix) {
@@ -62,8 +60,8 @@ class VerticalDeployer {
 
 	private void deployCenter() {
 		removeEmptyExternalRows();
-		if (targetDimension.height > matrix.getHeigth()) {
-			int rowsToAdd = targetDimension.height - matrix.getHeigth();
+		if (targetHeight > matrix.getHeigth()) {
+			int rowsToAdd = targetHeight - matrix.getHeigth();
 			int rowsToAddTop = rowsToAdd / 2;
 			matrix.addEmptyRowsTop(rowsToAddTop);
 			int rowsToAddBottom = rowsToAdd - rowsToAddTop;
@@ -90,26 +88,26 @@ class VerticalDeployer {
 	}
 	
 	private void completRowsBottom() {
-		if (targetDimension.height > matrix.getHeigth()) {
-			matrix.addEmptyRowsBottom(targetDimension.height - matrix.getHeigth());
+		if (targetHeight > matrix.getHeigth()) {
+			matrix.addEmptyRowsBottom(targetHeight - matrix.getHeigth());
 		}
 	}
 	
 	private void completRowsTop() {
-		if (targetDimension.height > matrix.getHeigth()) {
-			matrix.addEmptyRowsTop(targetDimension.height - matrix.getHeigth());
+		if (targetHeight > matrix.getHeigth()) {
+			matrix.addEmptyRowsTop(targetHeight - matrix.getHeigth());
 		}
 	}
 
 	private void removeExceedingRowsTop() {
-		if (matrix.getHeigth() > targetDimension.height) {
-			matrix.removeRowsTop(matrix.getHeigth() - targetDimension.height);
+		if (matrix.getHeigth() > targetHeight) {
+			matrix.removeRowsTop(matrix.getHeigth() - targetHeight);
 		}
 	}
 	
 	private void removeExceedingRowsBottom() {
-		if (matrix.getHeigth() > targetDimension.height) {
-			matrix.removeRowsBottom(matrix.getHeigth() - targetDimension.height);
+		if (matrix.getHeigth() > targetHeight) {
+			matrix.removeRowsBottom(matrix.getHeigth() - targetHeight);
 		}
 	}
 

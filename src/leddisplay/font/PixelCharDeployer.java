@@ -1,7 +1,5 @@
 package leddisplay.font;
 
-import java.awt.Dimension;
-
 public class PixelCharDeployer {
 	private final PixelFontMetrics metrics;
 	private int targetWidth, targetHeight;
@@ -31,9 +29,9 @@ public class PixelCharDeployer {
 	}
 	
 	private PixelChar deployNotEmpty(PixelsMatrix matrix) {
-		HorizontalDeployer horizontalDeployer = new HorizontalDeployer(horizontalDeployment, new Dimension(targetWidth, targetHeight));
+		HorizontalDeployer horizontalDeployer = new HorizontalDeployer(horizontalDeployment, targetWidth);
 		matrix = horizontalDeployer.deploy(matrix);
-		VerticalDeployer verticalDeployer = new VerticalDeployer(verticalDeployment, metrics, new Dimension(targetWidth, targetHeight));
+		VerticalDeployer verticalDeployer = new VerticalDeployer(verticalDeployment, metrics, targetHeight);
 		return verticalDeployer.deploy(matrix);
 	}
 	

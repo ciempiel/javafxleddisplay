@@ -1,16 +1,14 @@
 package leddisplay.font;
 
-import java.awt.Dimension;
-
 class HorizontalDeployer {
 	private final HorizontalDeployment horizontalDeployment;
-	private final Dimension targetDimension;
+	private final int targetWidth;
 	private PixelsMatrix matrix;
 	
-	public HorizontalDeployer(HorizontalDeployment horizontalDeployment, Dimension targetDimension) {
+	public HorizontalDeployer(HorizontalDeployment horizontalDeployment, int targetWidth) {
 		super();
 		this.horizontalDeployment = horizontalDeployment;
-		this.targetDimension = targetDimension;
+		this.targetWidth = targetWidth;
 	}
 
 	public PixelsMatrix deploy(PixelsMatrix matrix) {
@@ -39,8 +37,8 @@ class HorizontalDeployer {
 	}
 
 	private void deployCenter() {
-		if (targetDimension.width > matrix.getWidth()) {
-			int columnsToAdd = targetDimension.width - matrix.getWidth();
+		if (targetWidth > matrix.getWidth()) {
+			int columnsToAdd = targetWidth - matrix.getWidth();
 			int columnsToAddLeft = columnsToAdd / 2;
 			matrix.addEmptyColumnsLeft(columnsToAddLeft);
 			int columnsToAddRight = columnsToAdd - columnsToAddLeft;
@@ -49,14 +47,14 @@ class HorizontalDeployer {
 	}
 
 	private void deployLeft() {
-		if (targetDimension.width > matrix.getWidth()) {
-			matrix.addEmptyColumnsRight(targetDimension.width - matrix.getWidth());
+		if (targetWidth > matrix.getWidth()) {
+			matrix.addEmptyColumnsRight(targetWidth - matrix.getWidth());
 		}
 	}
 
 	private void deployRight() {
-		if (targetDimension.width > matrix.getWidth()) {
-			matrix.addEmptyColumnsLeft(targetDimension.width - matrix.getWidth());
+		if (targetWidth > matrix.getWidth()) {
+			matrix.addEmptyColumnsLeft(targetWidth - matrix.getWidth());
 		}
 	}
 
