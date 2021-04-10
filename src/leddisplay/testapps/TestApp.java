@@ -1,60 +1,27 @@
 package leddisplay.testapps;
 
 import javafx.application.Application;
-import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import leddisplay.AlphanumericLedDisplay;
 
-public class TestApp extends Application {
-	private AnchorPane root;
-
+public class TestApp extends Application{
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			root = new AnchorPane();
-			addDisplay(root, primaryStage);
-			Scene scene = new Scene(root, 1200, 400);
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(TestAppController.class.getResource("TestApp.fxml"));
+			AnchorPane root = loader.load();
+			TestAppController controller = loader.getController();
+			controller.setStage(primaryStage);
+			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
+			primaryStage.setMaximized(true);
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	private void addDisplay(AnchorPane pane, Stage stage) {
-		// ------------------------------------------------------------------
-		AlphanumericLedDisplay display = new AlphanumericLedDisplay();
-		pane.getChildren().add(display);
-
-		stage.showingProperty().addListener((observable, oldValue, newValue) -> {
-			display.clearDisplay();
-			display.print("Hello world!", 0, 0);
-			display.print("abcdefghijkl", 0, 1);
-		});
-		// -------------------------------------------------------------------
-
-		new Thread(() -> {
-			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			Platform.runLater(() -> {
-				display.clearDisplay();
-				display.print("ABCDEFGHJKLNMPO", 0, 1);
-			});
-			try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			Platform.runLater(() -> {
-				display.clearDisplay();
-				display.print("1234567890", 0, 1);
-			});
-		}).start();
 	}
 
 	public static void main(String[] args) {

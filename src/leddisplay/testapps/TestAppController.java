@@ -28,7 +28,7 @@ import leddisplay.AlphanumericLedDisplay;
 import leddisplay.font.HorizontalDeployment;
 import leddisplay.font.VerticalDeployment;
 
-public class TestInterpolationController {
+public class TestAppController {
 	@FXML
 	private Spinner<Integer> lineCountSpinner, charCountSpinner, pixelXCountSpinner, pixelYCountSpinner;
 	@FXML
