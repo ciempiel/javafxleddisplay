@@ -8,18 +8,11 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
-import javafx.scene.control.SkinBase;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import leddisplay.font.HorizontalDeployment;
-import leddisplay.font.PixelChar;
-import leddisplay.font.PixelCharDeployer;
-import leddisplay.font.PixelRenderer;
 import leddisplay.font.VerticalDeployment;
 
 public class AlphanumericLedDisplay extends Control {
@@ -37,53 +30,13 @@ public class AlphanumericLedDisplay extends Control {
 	public static final HorizontalDeployment DEFAULT_HORIZONTAL_DEPLOYMENT = HorizontalDeployment.CENTER;
 	public static final VerticalDeployment DEFAULT_VERTICAL_DEPLOYMENT = VerticalDeployment.BOTTOM_FONT_DESCENT;
 	
-	private PixelRenderer renderer;
-	private PixelCharDeployer deployer;
-	
-	private Pane pane;
-	private AlphanumericChar[][] alphanumerics;
-
 	public AlphanumericLedDisplay() {
-		this(Font.font("Casio fx-9860GII", 7)); // XXX
+		super();
 	}
 
 	public AlphanumericLedDisplay(Font font) {
 		super();
 		setFont(font);
-		updatePixelFont();
-		
-		// XXX refresh all - binding couse memory leakage
-		lineCount.addListener((observable, newValue, oldValue) -> refresh());
-		charCount.addListener((observable, newValue, oldValue) -> refresh());
-		pixelCountX.addListener((observable, newValue, oldValue) -> refresh());
-		pixelCountY.addListener((observable, newValue, oldValue) -> refresh());
-		pixelWidth.addListener((observable, newValue, oldValue) -> refresh());
-		pixelHeight.addListener((observable, newValue, oldValue) -> refresh());
-		pixelGapX.addListener((observable, newValue, oldValue) -> refresh());
-		pixelGapY.addListener((observable, newValue, oldValue) -> refresh());
-		charGapX.addListener((observable, newValue, oldValue) -> refresh());
-		charGapY.addListener((observable, newValue, oldValue) -> refresh());
-		this.font.addListener((observable, newValue, oldValue) -> refresh());
-
-		text.addListener((observable, oldValue, newValue) -> {
-			if (text.isBound()) {
-				CharPrinter printer = new CharPrinter(getLineCount(), getCharCount());
-				printer.setText(oldValue);
-				printer.initChanges();
-				printer.setText(newValue);
-				printer.consumeChanges((posX, posY, c) -> {
-					PixelChar pixelMatrix = getChar(c);
-					alphanumerics[posX][posY].setPixelMatrix(pixelMatrix);
-				});
-			}
-		});
-		pixelOnColor.addListener((observable, oldValue, newValue) -> updateColors());
-		pixelOffColor.addListener((observable, oldValue, newValue) -> updateColors());
-		backlightColor.addListener((observable, oldValue, newValue) -> updateColors());
-		horizontalDeployment.addListener((observable, newValue, oldValue) -> refresh());
-		verticalDeployment.addListener((observable, newValue, oldValue) -> refresh());
-		horizontalShift.addListener((observable, newValue, oldValue) -> refresh());
-		verticalShift.addListener((observable, newValue, oldValue) -> refresh());
 	}
 
 	private final IntegerProperty lineCount = new SimpleIntegerProperty(this, "lineCount", DEFAULT_LINE_COUNT);
@@ -106,106 +59,32 @@ public class AlphanumericLedDisplay extends Control {
 	private final DoubleProperty horizontalShift = new SimpleDoubleProperty(this, "horizontalShift", 0.0);
 	private final DoubleProperty verticalShift = new SimpleDoubleProperty(this, "verticalShift", 0.0);
 	
-	// public void print(String text) {
-	//
-	// }
-
-	public void print(String text, int posX, int posY) {
-		if (textProperty().isBound()) {
-
-			// XXX throw
-			return;
-		}
-
-		int lastPos = Math.min(getCharCount(), posX + text.length());
-		int charIndex = 0;
-		for (; posX < lastPos; posX++) {
-			char c = text.charAt(charIndex);
-			PixelChar pixelMatrix = getChar(c);
-			alphanumerics[posX][posY].setPixelMatrix(pixelMatrix);
-			charIndex++;
-		}
+	public void print(int posY, String text) {
+		print(0, posY, text);
+	}
+	
+	public void print(int posX, int posY, String text) {
+		checkTextIsBound();
+		CharPrinter printer = new CharPrinter(getLineCount(), getCharCount());
+		printer.setText(getText());
+		printer.print(posX, posY, text);
+		setText(printer.getText());
 	}
 
 	public void clearDisplay() {
-		for (int i = 0; i < getCharCount(); i++) {
-			for (int j = 0; j < getLineCount(); j++) {
-				alphanumerics[i][j].clearPixel();
-			}
+		checkTextIsBound();
+		setText("");
+	}
+
+	private void checkTextIsBound() {
+		if (textProperty().isBound()) {
+			throw new RuntimeException("A bound text cannot be set.");
 		}
-	}
-	
-	private void updatePixelFont() {
-		renderer = new PixelRenderer(getFont());
-		
-		deployer = new PixelCharDeployer(renderer.getMetrics(), (int)getPixelCountX(), (int)getPixelCountY());
-		deployer.setHorizontalDeployment(getHorizontalDeployment());
-		deployer.setHorizontalShift((int)getHorizontalShift());
-		deployer.setVerticalDeployment(getVerticalDeployment());
-		deployer.setVerticalShift((int)getVerticalShift());
-	}
-	
-	private PixelChar getChar(char c) {
-		return deployer.deploy(renderer.getChar(c));
 	}
 
 	@Override
 	protected Skin<?> createDefaultSkin() {
-		return new SkinBase<AlphanumericLedDisplay>(this) {
-			{
-				getChildren().add(createNode());
-			}
-		};
-	}
-
-	private Node createNode() {
-		pane = new Pane();
-		alphanumerics = new AlphanumericChar[getCharCount()][getLineCount()];
-		setPaneColor();
-		double width = AlphanumericChar.calcWidth(this);
-		double height = AlphanumericChar.calcHeight(this);
-		for (int i = 0; i < getCharCount(); i++) {
-			for (int j = 0; j < getLineCount(); j++) {
-				AlphanumericChar alphanumeric = new AlphanumericChar(this);
-				alphanumeric.setLayoutX((width + getCharGapX()) * i);
-				alphanumeric.setLayoutY((height + getCharGapY()) * j);
-				alphanumerics[i][j] = alphanumeric;
-				pane.getChildren().add(alphanumeric);
-			}
-		}
-		return new Group(pane); // XXX if not wrapped, background when padding doesn't work
-	}
-
-	private void setPaneColor() {
-		String webColor = String.valueOf(getBacklightColor()).replace("0x", "#");
-		setStyle("-fx-background-color: " + webColor);
-	}
-
-	private void refresh() {
-		// XXX poprawiæ
-		updatePixelFont();
-		
-		getChildren().clear();
-		getChildren().add(createNode());
-		refreshAllText();
-	}
-
-	private void refreshAllText() {
-		CharPrinter printer = new CharPrinter(getLineCount(), getCharCount());
-		printer.setText(getText());
-		printer.consumeChanges((posX, posY, c) -> {
-			PixelChar pixelMatrix = getChar(c);
-			alphanumerics[posX][posY].setPixelMatrix(pixelMatrix);
-		});
-	}
-
-	private void updateColors() {
-		for (int i = 0; i < getCharCount(); i++) {
-			for (int j = 0; j < getLineCount(); j++) {
-				alphanumerics[i][j].updatePixels();
-			}
-		}
-		setPaneColor();
+		return new AlphanumericLedDisplaySkin(this);
 	}
 
 	public final IntegerProperty lineCountProperty() {
