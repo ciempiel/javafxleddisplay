@@ -63,9 +63,6 @@ public class PixelRenderer implements PixelFont {
 		PixelsMatrix matrix = renderText(builder.toString());
 		int emptyRowsCountBottom = matrix.getEmptyRowsCountBottom();
 		int calcDescent = matrix.getHeigth() - metrics.getAscent() - emptyRowsCountBottom;
-		
-		System.out.println("Descent: " + metrics.getDescent() + ", CalcDescent: " + calcDescent);
-		
 		pixelMetrics = new PixelFontMetrics(metrics.getHeight(), metrics.getAscent(), metrics.getDescent(), calcDescent);
 	}
 	
@@ -81,7 +78,6 @@ public class PixelRenderer implements PixelFont {
 		Graphics2D g2d = img.createGraphics();
 //		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setFont(font);
-		System.out.println(metrics.toString());
 		g2d.setColor(Color.BLACK);
 		g2d.drawString(text, 0, metrics.getAscent());
 		g2d.dispose();
@@ -92,31 +88,6 @@ public class PixelRenderer implements PixelFont {
 
 	public PixelFontMetrics getMetrics() {
 		return pixelMetrics;
-	}
-	
-	private static void printFontMetrics(FontMetrics fontMetrics) {
-		System.out.println("FontMetrics:");
-		System.out.println("Ascent: " + fontMetrics.getAscent());
-		System.out.println("Descent: " + fontMetrics.getDescent());
-		System.out.println("Height: " + fontMetrics.getHeight());
-		System.out.println("Leading: " + fontMetrics.getLeading());
-		System.out.println("MaxAdvance: " + fontMetrics.getMaxAdvance());
-		System.out.println("MaxAscent: " + fontMetrics.getMaxAscent());
-		System.out.println("MaxDescent: " + fontMetrics.getMaxDescent());
-	}
-	
-	private static void printPixels(int[] pixels, int width, int height) {
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width; x++) {
-				int index = y * width + x;
-				if (pixels[index] != 0) {
-					System.out.print('+');
-				} else {
-					System.out.print('.');
-				}
-			}
-			System.out.println();
-		}
 	}
 	
 }
