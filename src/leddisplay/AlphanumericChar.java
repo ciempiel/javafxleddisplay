@@ -25,10 +25,10 @@ class AlphanumericChar extends Control {
 
 	public void setPixelMatrix(PixelChar pixelMatrix) {
 		this.pixelMatrix = pixelMatrix;
-		updatePixels();
+		updatePixelColors();
 	}
 	
-	public void updatePixels() {
+	public void updatePixelColors() {
 		if (pixels == null) {
 			return;
 		}
@@ -40,10 +40,18 @@ class AlphanumericChar extends Control {
 		}
 	}
 
-	public void clearPixel() {
+	public void clearPixelColors() {
 		for (int i = 0; i < display.getPixelCountX(); i++) {
 			for (int j = 0; j < display.getPixelCountY(); j++) {
 				pixels[i][j].setFill(display.getPixelOffColor());
+			}
+		}
+	}
+	
+	public void updatePixelsBounds() {
+		for (int i = 0; i < display.getPixelCountX(); i++) {
+			for (int j = 0; j < display.getPixelCountY(); j++) {
+				setPixelBounds(pixels[i][j], i, j);
 			}
 		}
 	}
@@ -66,18 +74,22 @@ class AlphanumericChar extends Control {
 				pixels[i][j] = pixel;
 			}
 		}
-		updatePixels();
+		updatePixelColors();
 		return pane;
 	}
 
 	private Rectangle createPixel(int indexX, int indexY) {
 		Rectangle pixel = new Rectangle();
+		setPixelBounds(pixel, indexX, indexY);
+		pixel.setFill(display.getPixelOffColor());
+		return pixel;
+	}
+
+	private void setPixelBounds(Rectangle pixel, int indexX, int indexY) {
 		pixel.setWidth(display.getPixelWidth());
 		pixel.setHeight(display.getPixelHeight());
 		pixel.setLayoutX(getPixelLayoutX(indexX));
 		pixel.setLayoutY(getPixelLayoutY(indexY));
-		pixel.setFill(display.getPixelOffColor());
-		return pixel;
 	}
 	
 	private double getPixelLayoutX(int indexX) {

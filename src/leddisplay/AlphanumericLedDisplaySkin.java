@@ -9,27 +9,23 @@ import leddisplay.font.PixelCharDeployer;
 import leddisplay.font.PixelRenderer;
 
 public class AlphanumericLedDisplaySkin extends SkinBase<AlphanumericLedDisplay> {
-	private Pane pane;
 	private AlphanumericChar[][] alphanumerics;
 	private PixelRenderer renderer;
 	private PixelCharDeployer deployer;
 	
 	protected AlphanumericLedDisplaySkin(AlphanumericLedDisplay control) {
 		super(control);
-		construct();
+		updateAll();
 		addBinding();
-		
-		// XXX
-		updatePixelFont();
-		refreshAllText();
 	}
 
-	private void construct() {
+	private void updateAlphanumerics() {
+		getChildren().clear();
 		getChildren().add(createNodes());
 	}
 
 	private Node createNodes() {
-		pane = new Pane();
+		Pane pane = new Pane();
 		alphanumerics = new AlphanumericChar[getSkinnable().getCharCount()][getSkinnable().getLineCount()];
 		setPaneColor();
 		double width = AlphanumericChar.calcWidth(getSkinnable());
@@ -48,41 +44,55 @@ public class AlphanumericLedDisplaySkin extends SkinBase<AlphanumericLedDisplay>
 	}
 	
 	private void addBinding() {
-		// XXX refresh all - binding couse memory leakage
-		getSkinnable().lineCountProperty().addListener((observable, newValue, oldValue) -> refresh());
-		getSkinnable().charCountProperty().addListener((observable, newValue, oldValue) -> refresh());
-		getSkinnable().pixelCountXProperty().addListener((observable, newValue, oldValue) -> refresh());
-		getSkinnable().pixelCountYProperty().addListener((observable, newValue, oldValue) -> refresh());
-		getSkinnable().pixelWidthProperty().addListener((observable, newValue, oldValue) -> refresh());
-		getSkinnable().pixelHeightProperty().addListener((observable, newValue, oldValue) -> refresh());
-		getSkinnable().pixelGapXProperty().addListener((observable, newValue, oldValue) -> refresh());
-		getSkinnable().pixelGapYProperty().addListener((observable, newValue, oldValue) -> refresh());
-		getSkinnable().charGapXProperty().addListener((observable, newValue, oldValue) -> refresh());
-		getSkinnable().charGapYProperty().addListener((observable, newValue, oldValue) -> refresh());
-		getSkinnable().fontProperty().addListener((observable, newValue, oldValue) -> refresh());
-
-		getSkinnable().textProperty().addListener((observable, oldValue, newValue) -> {
-			CharPrinter printer = new CharPrinter(getSkinnable().getLineCount(), getSkinnable().getCharCount());
-			printer.setText(oldValue);
-			printer.initChanges();
-			printer.setText(newValue);
-			printer.consumeChanges((posX, posY, c) -> {
-				PixelChar pixelMatrix = getChar(c);
-				alphanumerics[posX][posY].setPixelMatrix(pixelMatrix);
-			});
-		});
+		getSkinnable().lineCountProperty().addListener((observable, newValue, oldValue) -> updateAll());
+		getSkinnable().charCountProperty().addListener((observable, newValue, oldValue) -> updateAll());
+		getSkinnable().pixelCountXProperty().addListener((observable, newValue, oldValue) -> updateAll());
+		getSkinnable().pixelCountYProperty().addListener((observable, newValue, oldValue) -> updateAll());
+		getSkinnable().pixelWidthProperty().addListener((observable, newValue, oldValue) -> updateBounds());
+		getSkinnable().pixelHeightProperty().addListener((observable, newValue, oldValue) -> updateBounds());
+		getSkinnable().pixelGapXProperty().addListener((observable, newValue, oldValue) -> updateBounds());
+		getSkinnable().pixelGapYProperty().addListener((observable, newValue, oldValue) -> updateBounds());
+		getSkinnable().charGapXProperty().addListener((observable, newValue, oldValue) -> updateBounds());
+		getSkinnable().charGapYProperty().addListener((observable, newValue, oldValue) -> updateBounds());
+		getSkinnable().fontProperty().addListener((observable, newValue, oldValue) -> updateFontRendererAndAllText());
+		getSkinnable().textProperty().addListener((observable, oldValue, newValue) -> updateText(oldValue, newValue));
 		getSkinnable().pixelOnColorProperty().addListener((observable, oldValue, newValue) -> updateColors());
 		getSkinnable().pixelOffColorProperty().addListener((observable, oldValue, newValue) -> updateColors());
 		getSkinnable().backlightColorProperty().addListener((observable, oldValue, newValue) -> updateColors());
-		getSkinnable().horizontalDeploymentProperty().addListener((observable, newValue, oldValue) -> refresh());
-		getSkinnable().verticalDeploymentProperty().addListener((observable, newValue, oldValue) -> refresh());
-		getSkinnable().horizontalShiftProperty().addListener((observable, newValue, oldValue) -> refresh());
-		getSkinnable().verticalShiftProperty().addListener((observable, newValue, oldValue) -> refresh());
+		getSkinnable().horizontalDeploymentProperty().addListener((observable, newValue, oldValue) -> updateDeployerAndAllText());
+		getSkinnable().verticalDeploymentProperty().addListener((observable, newValue, oldValue) -> updateDeployerAndAllText());
+		getSkinnable().horizontalShiftProperty().addListener((observable, newValue, oldValue) -> updateDeployerAndAllText());
+		getSkinnable().verticalShiftProperty().addListener((observable, newValue, oldValue) -> updateDeployerAndAllText());
+	}
+
+	private void updateText(String oldValue, String newValue) {
+		CharPrinter printer = new CharPrinter(getSkinnable().getLineCount(), getSkinnable().getCharCount());
+		printer.setText(oldValue);
+		printer.initChanges();
+		printer.setText(newValue);
+		printer.consumeChanges((posX, posY, c) -> {
+			PixelChar pixelMatrix = getChar(c);
+			alphanumerics[posX][posY].setPixelMatrix(pixelMatrix);
+		});
 	}
 	
-	private void updatePixelFont() {
-		renderer = new PixelRenderer(getSkinnable().getFont());
-		
+	private void updateAll() {
+		updateAlphanumerics();
+		updateFontRenderer();
+		updateDeployer();
+		updateAllText();
+	}
+
+	private void updateFontRenderer() {
+		renderer = new PixelRenderer(getSkinnable().getFont());		
+	}
+	
+	private void updateFontRendererAndAllText() {
+		updateFontRenderer();
+		updateAllText();
+	}
+
+	private void updateDeployer() {
 		deployer = new PixelCharDeployer(renderer.getMetrics(), (int)getSkinnable().getPixelCountX(), (int)getSkinnable().getPixelCountY());
 		deployer.setHorizontalDeployment(getSkinnable().getHorizontalDeployment());
 		deployer.setHorizontalShift((int)getSkinnable().getHorizontalShift());
@@ -90,36 +100,44 @@ public class AlphanumericLedDisplaySkin extends SkinBase<AlphanumericLedDisplay>
 		deployer.setVerticalShift((int)getSkinnable().getVerticalShift());
 	}
 	
-	private void setPaneColor() {
-		String webColor = String.valueOf(getSkinnable().getBacklightColor()).replace("0x", "#");
-		getSkinnable().setStyle("-fx-background-color: " + webColor);
+	private void updateDeployerAndAllText() {
+		updateDeployer();
+		updateAllText();
 	}
 	
-	private void refresh() {
-		// XXX poprawiæ
-		updatePixelFont();
-		
-		getChildren().clear();
-		getChildren().add(createNodes());
-		refreshAllText();
+	private void updateBounds() {
+		double width = AlphanumericChar.calcWidth(getSkinnable());
+		double height = AlphanumericChar.calcHeight(getSkinnable());
+		for (int x = 0; x < alphanumerics.length; x++) {
+			for (int y = 0; y < alphanumerics[0].length; y++) {
+				alphanumerics[x][y].setLayoutX((width + getSkinnable().getCharGapX()) * x);
+				alphanumerics[x][y].setLayoutY((height + getSkinnable().getCharGapY()) * y);
+				alphanumerics[x][y].updatePixelsBounds();
+			}
+		}
 	}
 	
 	private void updateColors() {
 		for (int i = 0; i < getSkinnable().getCharCount(); i++) {
 			for (int j = 0; j < getSkinnable().getLineCount(); j++) {
-				alphanumerics[i][j].updatePixels();
+				alphanumerics[i][j].updatePixelColors();
 			}
 		}
 		setPaneColor();
 	}
 	
-	private void refreshAllText() {
+	private void updateAllText() {
 		CharPrinter printer = new CharPrinter(getSkinnable().getLineCount(), getSkinnable().getCharCount());
 		printer.setText(getSkinnable().getText());
 		printer.consumeChanges((posX, posY, c) -> {
 			PixelChar pixelMatrix = getChar(c);
 			alphanumerics[posX][posY].setPixelMatrix(pixelMatrix);
 		});
+	}
+	
+	private void setPaneColor() {
+		String webColor = String.valueOf(getSkinnable().getBacklightColor()).replace("0x", "#");
+		getSkinnable().setStyle("-fx-background-color: " + webColor);
 	}
 	
 	private PixelChar getChar(char c) {
