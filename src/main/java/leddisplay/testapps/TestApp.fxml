@@ -68,43 +68,16 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Pixel y count:" GridPane.rowIndex="4" />
-                        <Label text="Pixel x count:" GridPane.rowIndex="3" />
-                        <Spinner fx:id="pixelYCountSpinner" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Spinner fx:id="pixelXCountSpinner" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label text="Line count:" GridPane.rowIndex="1" />
-                        <Label text="Pixel gap x:" GridPane.rowIndex="7" />
-                        <Label text="Char count:" GridPane.rowIndex="2" />
-                        <Label text="Pixel width:" GridPane.rowIndex="5" />
-                        <Spinner fx:id="charCountSpinner" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Spinner fx:id="lineCountSpinner" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Spinner fx:id="charCountSpinner" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Spinner fx:id="pixelXCountSpinner" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Spinner fx:id="pixelYCountSpinner" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Spinner fx:id="pixelWidthSpinner" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <Spinner fx:id="pixelGapXSpinner" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <Label text="Pixel height:" GridPane.rowIndex="6" />
                         <Spinner fx:id="pixelHeightSpinner" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <Label text="Pixel gap y:" GridPane.rowIndex="8" />
+                        <Spinner fx:id="pixelGapXSpinner" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <Spinner fx:id="pixelGapYSpinner" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                        <AnchorPane GridPane.rowIndex="12">
-                           <children>
-                              <Label prefHeight="30.0" text="Text:" />
-                           </children>
-                        </AnchorPane>
-                        <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
-                           <GridPane.margin>
-                              <Insets bottom="5.0" top="5.0" />
-                           </GridPane.margin>
-                        </TextArea>
-                        <Label text="Pixel off color:" GridPane.rowIndex="13" />
-                        <Label text="Pixel on color:" GridPane.rowIndex="14" />
-                        <Label text="Backlight color:" GridPane.rowIndex="15" />
-                        <ColorPicker fx:id="pixelOffColorPicker" GridPane.columnIndex="1" GridPane.rowIndex="13" />
-                        <ColorPicker fx:id="pixelOnColorPicker" GridPane.columnIndex="1" GridPane.rowIndex="14" />
-                        <ColorPicker fx:id="backlightColorPicker" GridPane.columnIndex="1" GridPane.rowIndex="15" />
-                        <Label text="Char gap x:" GridPane.rowIndex="9" />
-                        <Label text="Char gap y:" GridPane.rowIndex="10" />
                         <Spinner fx:id="charGapXSpinner" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                         <Spinner fx:id="charGapYSpinner" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                        <Label text="Padding:" GridPane.rowIndex="11" />
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="11">
                            <children>
                               <Spinner fx:id="paddingTopSpinner" prefWidth="60.0" />
@@ -113,25 +86,52 @@
                               <Spinner fx:id="paddingLeftSpinner" prefWidth="60.0" />
                            </children>
                         </HBox>
+                        <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </TextArea>
+                        <ColorPicker fx:id="pixelOffColorPicker" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                        <ColorPicker fx:id="pixelOnColorPicker" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                        <ColorPicker fx:id="backlightColorPicker" GridPane.columnIndex="1" GridPane.rowIndex="15" />
+                        <ComboBox fx:id="fontFamilyCombo" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="16" />
+                        <ComboBox fx:id="fontStyleCombo" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="17" />
+                        <Spinner fx:id="fontSizeSpinner" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="18" />
+                        <ComboBox fx:id="horizontalDeploymentCombo" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="19" />
+                        <ComboBox fx:id="verticalDeploymentCombo" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="20" />
+                        <Spinner fx:id="horizontalShiftSpinner" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="21" />
+                        <Spinner fx:id="verticalShiftSpinner" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="22" />
+                        <Label text="Pixel y count:" GridPane.rowIndex="4" />
+                        <Label text="Pixel x count:" GridPane.rowIndex="3" />
+                        <Label text="Line count:" GridPane.rowIndex="1" />
+                        <Label text="Pixel gap x:" GridPane.rowIndex="7" />
+                        <Label text="Char count:" GridPane.rowIndex="2" />
+                        <Label text="Pixel width:" GridPane.rowIndex="5" />
+                        <Label text="Pixel height:" GridPane.rowIndex="6" />
+                        <Label text="Pixel gap y:" GridPane.rowIndex="8" />
+                        <AnchorPane GridPane.rowIndex="12">
+                           <children>
+                              <Label prefHeight="30.0" text="Text:" />
+                           </children>
+                        </AnchorPane>
+                        <Label text="Pixel off color:" GridPane.rowIndex="13" />
+                        <Label text="Pixel on color:" GridPane.rowIndex="14" />
+                        <Label text="Backlight color:" GridPane.rowIndex="15" />
+                        <Label text="Char gap x:" GridPane.rowIndex="9" />
+                        <Label text="Char gap y:" GridPane.rowIndex="10" />
+                        <Label text="Padding:" GridPane.rowIndex="11" />
                         <Label text="Font family:" GridPane.rowIndex="16" />
                         <Label text="Font size:" GridPane.rowIndex="18" />
-                        <ComboBox fx:id="fontFamilyCombo" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="16" />
-                        <Spinner fx:id="fontSizeSpinner" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="18" />
                         <Label text="Font style:" GridPane.rowIndex="17" />
-                        <ComboBox fx:id="fontStyleCombo" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="17" />
                         <Label text="Properties:">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
                         <Label text="Horizontal deployment:" GridPane.rowIndex="19" />
-                        <ComboBox fx:id="horizontalDeploymentCombo" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="19" />
                         <Label text="Vertical deployment:" GridPane.rowIndex="20" />
-                        <ComboBox fx:id="verticalDeploymentCombo" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="20" />
                         <Label text="Horizontal shift:" GridPane.rowIndex="21" />
-                        <Spinner fx:id="horizontalShiftSpinner" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="21" />
                         <Label text="Vertical shift:" GridPane.rowIndex="22" />
-                        <Spinner fx:id="verticalShiftSpinner" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="22" />
                      </children>
                   </GridPane>
                </children>
