@@ -54,7 +54,7 @@ public class AlphanumericLedDisplaySkin extends SkinBase<AlphanumericLedDisplay>
 		getSkinnable().pixelGapYProperty().addListener((observable, newValue, oldValue) -> updateBounds());
 		getSkinnable().charGapXProperty().addListener((observable, newValue, oldValue) -> updateBounds());
 		getSkinnable().charGapYProperty().addListener((observable, newValue, oldValue) -> updateBounds());
-		getSkinnable().fontProperty().addListener((observable, newValue, oldValue) -> updateFontRendererAndAllText());
+		getSkinnable().fontProperty().addListener((observable, newValue, oldValue) -> updateFont());
 		getSkinnable().textProperty().addListener((observable, oldValue, newValue) -> updateText(oldValue, newValue));
 		getSkinnable().pixelOnColorProperty().addListener((observable, oldValue, newValue) -> updateColors());
 		getSkinnable().pixelOffColorProperty().addListener((observable, oldValue, newValue) -> updateColors());
@@ -87,8 +87,9 @@ public class AlphanumericLedDisplaySkin extends SkinBase<AlphanumericLedDisplay>
 		renderer = new PixelRenderer(getSkinnable().getFont());		
 	}
 	
-	private void updateFontRendererAndAllText() {
+	private void updateFont() {
 		updateFontRenderer();
+		updateDeployer();
 		updateAllText();
 	}
 
